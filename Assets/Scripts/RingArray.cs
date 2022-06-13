@@ -3,14 +3,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class RingArray : MonoBehaviour
 {
+
+    public enum Ring
+    {
+        one,
+        two
+    }
+    public Ring ringID;
+
+    public TMP_Text debugText;
+
     public GameObject enemyPrefab;
     [Range(0, 10)]
     public int numberOfEnemies;
     public Transform positionTransform;
     public float radius;
+    public float rotation;
 
     private List<GameObject> enemies;
 
@@ -24,7 +36,44 @@ public class RingArray : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        SpaceEnemies();
 
+        PrintDebug();
+    }
+
+    void PrintDebug()
+    {
+        //int i = 0;
+        //foreach (GameObject go in enemies)
+        //{
+        //    debugText.text += "> "+ i+ " "+go.name + "\n";
+        //    i++;
+        //}
+        string s = "";
+        for (int i=0; i < enemies.Count; i++)
+        {
+            s += "> " + i + " " + enemies[i].name + "\n";
+        }
+        debugText.text = s;
+
+    }
+
+    void SpaceEnemies()
+    {
+        if (enemies.Count < numberOfEnemies)
+        {
+            //print("Ring " + ringID + " has less enemies in it");
+        }
+        
+    }
+
+    public void RemoveEnemy (GameObject enemy)
+    {
+        // Removes enemy from the list
+        if (enemies.Count >0)
+        {
+            enemies.Remove(enemy);
+        }
     }
 
     public void CreateEnemiesAroundPoint(int num, Vector3 point, float radius)
@@ -49,6 +98,7 @@ public class RingArray : MonoBehaviour
             /* Now spawn */
             //var enemy = Instantiate(enemyPrefab, spawnPos, Quaternion.identity) as GameObject;
             GameObject enemy = Instantiate(enemyPrefab, spawnPos, transform.rotation);
+            enemy.name = ringID + " enemy " + i;
 
             enemies.Add(enemy);
 
@@ -59,13 +109,16 @@ public class RingArray : MonoBehaviour
                 //go.transform.RotateAround(point, transform.forward, 90f);
             }
 
-            transform.RotateAround(point, transform.right, 90f);
+
             /* Rotate the enemy to face towards player */
             //enemy.transform.LookAt(point);
 
             /* Adjust height */
             //enemy.transform.Translate(new Vector3(0, enemy.transform.localScale.y / 2, 0));
         }
+
+        if (ringID == Ring.one) transform.RotateAround(point, transform.right, 90);
+        if (ringID == Ring.two) transform.RotateAround(point, transform.forward, 90);
     }
 
 
