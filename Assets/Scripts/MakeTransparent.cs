@@ -73,7 +73,7 @@ public class MakeTransparent : MonoBehaviour
     }
     void MakeObjectsSolid()
     {
-        for (int i = alreadyTransparent.Count; i >= 0; i--)
+        for (int i = alreadyTransparent.Count - 1; i >= 0; i--)
         {
             IAmInTheWay wasInTheWay = alreadyTransparent[i];
             if (!currentlyInTheWay.Contains(wasInTheWay))
