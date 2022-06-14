@@ -37,7 +37,6 @@ public class RingArray : MonoBehaviour
     void Update()
     {
         SpaceEnemies();
-
         PrintDebug();
     }
 
@@ -57,7 +56,6 @@ public class RingArray : MonoBehaviour
         debugText.text = s;
 
     }
-
     void SpaceEnemies()
     {
         if (enemies.Count < numberOfEnemies)
@@ -66,7 +64,6 @@ public class RingArray : MonoBehaviour
         }
         
     }
-
     public void RemoveEnemy (GameObject enemy)
     {
         // Removes enemy from the list
@@ -75,7 +72,6 @@ public class RingArray : MonoBehaviour
             enemies.Remove(enemy);
         }
     }
-
     public void CreateEnemiesAroundPoint(int num, Vector3 point, float radius)
     {
 
@@ -120,6 +116,4 @@ public class RingArray : MonoBehaviour
         if (ringID == Ring.one) transform.RotateAround(point, transform.right, 90);
         if (ringID == Ring.two) transform.RotateAround(point, transform.forward, 90);
     }
-
-
 }

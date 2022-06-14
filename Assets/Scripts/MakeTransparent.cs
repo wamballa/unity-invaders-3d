@@ -6,8 +6,12 @@ public class MakeTransparent : MonoBehaviour
 {
     [SerializeField] private List<IAmInTheWay> currentlyInTheWay;
     [SerializeField] private List<IAmInTheWay> alreadyTransparent;
+    [SerializeField] private Transform planet;
     [SerializeField] private Transform player;
     private Transform camera;
+
+    
+    public float transDistance = 3.5f;
 
 
     // Start is called before the first frame update
@@ -22,9 +26,56 @@ public class MakeTransparent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        GetAllObjectsInTheWay();
-        MakeObjectsSolid();
-        MakeObjectsTransparent();
+
+        TransparentNearCamera();
+
+        //GetAllObjectsInTheWay();
+        
+
+        //MakeObjectsTransparent();
+        //MakeObjectsSolid();
+    }
+
+    private void OnAnimatorIK(int layerIndex)
+    {
+        
+    }
+
+    void TransparentNearCamera()
+    {
+        //float distance = Vector3.Magnitude( camera.position -planet.position);
+
+        RaycastHit[] hits =  Physics.SphereCastAll(
+            transform.position, 
+            transDistance, 
+            transform.forward);
+
+        if (hits.Length > 0)
+        {
+            IAmInTheWay[] inTheWays = GameObject.FindObjectsOfType<IAmInTheWay>();
+            foreach (IAmInTheWay i in inTheWays)
+            {
+                i.ShowSolid();
+            }
+            foreach (var hit in hits)
+            {
+                if (hit.collider.gameObject.TryGetComponent(out IAmInTheWay inTheWay))
+                {
+                    inTheWay.ShowTransparent();
+                    //if (!currentlyInTheWay.Contains(inTheWay))
+                    //{
+                    //    print(">>>> " + inTheWay.gameObject.name);
+                    //    //currentlyInTheWay.Add(inTheWay);
+
+                    //    inTheWay.ShowTransparent();
+
+                    //}
+                }
+            }
+        }
+
+
+
     }
 
     void GetAllObjectsInTheWay()
@@ -37,26 +88,85 @@ public class MakeTransparent : MonoBehaviour
         var hits1Forward = Physics.RaycastAll(ray1Forward, cameraPlayerDistance);
         var hits1Backward = Physics.RaycastAll(ray1Backward, cameraPlayerDistance);
 
-        foreach (var hit in hits1Forward)
+        Debug.DrawRay
+            (transform.position,
+            player.position - camera.position,
+            Color.green);
+
+        //print("already transparent number = " + alreadyTransparent.Count );
+
+        if (hits1Forward.Length > 0)
         {
-            if (hit.collider.gameObject.TryGetComponent(out IAmInTheWay inTheWay))
+            //GameObject[] enemies1 = GameObject.FindGameObjectsWithTag("Enemy1");
+            IAmInTheWay[] inTheWays = GameObject.FindObjectsOfType<IAmInTheWay>();
+            foreach (IAmInTheWay i in inTheWays)
             {
-                if (!currentlyInTheWay.Contains(inTheWay))
+                i.ShowSolid();
+            }
+            foreach (var hit in hits1Forward)
+            {
+                if (hit.collider.gameObject.TryGetComponent(out IAmInTheWay inTheWay))
                 {
-                    currentlyInTheWay.Add(inTheWay);
+                    if (!currentlyInTheWay.Contains(inTheWay))
+                    {
+                        print(">>>> " + inTheWay.gameObject.name);
+                        //currentlyInTheWay.Add(inTheWay);
+
+                        inTheWay.ShowTransparent();
+
+                    }
                 }
             }
         }
-        foreach (var hit in hits1Backward)
-        {
-            if (hit.collider.gameObject.TryGetComponent(out IAmInTheWay inTheWay))
-            {
-                if (!currentlyInTheWay.Contains(inTheWay))
-                {
-                    currentlyInTheWay.Add(inTheWay);
-                }
-            }
-        }
+
+
+        //foreach (var hit in hits1Forward)
+        //{
+        //    if (hit.collider.gameObject.TryGetComponent(out IAmInTheWay inTheWay))
+        //    {
+        //        if (!currentlyInTheWay.Contains(inTheWay))
+        //        {
+        //            print(">>>> " + inTheWay.gameObject.name);
+        //            currentlyInTheWay.Add(inTheWay);
+        //        }
+
+        //    }
+        //}
+        //GameObject[] enemies1 = GameObject.FindGameObjectsWithTag("Enemy1");
+        //print("Num enemy1 = " + enemies1.Length);
+        //for (int i = enemies1.Length - 1; i >= 0; i--)
+        //{
+        //    IAmInTheWay wasInTheWay = alreadyTransparent[i];
+        //    if (!currentlyInTheWay.Contains(wasInTheWay))
+        //    {
+        //        wasInTheWay.ShowSolid();
+        //        alreadyTransparent.Remove(wasInTheWay);
+        //    }
+        //}
+
+
+
+        //foreach (var hit in hits1Forward)
+        //{
+        //    if (hit.collider.gameObject.TryGetComponent(out IAmInTheWay inTheWay))
+        //    {
+        //        if (!currentlyInTheWay.Contains(inTheWay))
+        //        {
+        //            print(">>>> " + inTheWay.gameObject.name);
+        //            currentlyInTheWay.Add(inTheWay);
+        //        }
+        //    }
+        //}
+        //foreach (var hit in hits1Backward)
+        //{
+        //    if (hit.collider.gameObject.TryGetComponent(out IAmInTheWay inTheWay))
+        //    {
+        //        if (!currentlyInTheWay.Contains(inTheWay))
+        //        {
+        //            currentlyInTheWay.Add(inTheWay);
+        //        }
+        //    }
+        //}
 
     }
     void MakeObjectsTransparent()
@@ -81,7 +191,6 @@ public class MakeTransparent : MonoBehaviour
                 wasInTheWay.ShowSolid();
                 alreadyTransparent.Remove(wasInTheWay);
             }
-
         }
     }
 

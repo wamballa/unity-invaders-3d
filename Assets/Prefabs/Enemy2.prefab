@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 4903544721638162891}
   m_Layer: 0
   m_Name: Enemy2
-  m_TagString: Enemy1
+  m_TagString: Enemy2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -127,7 +127,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3115479611369078298}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
