@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour
     public Transform bulletSpawnPoint;
     public GameObject bulletPF;
 
+    private float cameraRotation = 45;
+
     private bool hasRotated = false;
     bool canRotate = true;
 
@@ -60,7 +62,7 @@ public class PlayerController : MonoBehaviour
             if (canRotate)
             {
                 //print("rotate false");
-                StartCoroutine(RotateMe(Vector3.up * 90, 1));
+                StartCoroutine(RotateMe(Vector3.up * cameraRotation, 1));
                 // rotate player
                 //planet.RotateAround(planet.position, Vector3.up, 90);
                 //hasRotated = true;
@@ -69,7 +71,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.D))
         {
             //print("rotate false");
-            StartCoroutine(RotateMe(Vector3.up * -90, 1));
+            StartCoroutine(RotateMe(Vector3.up * -cameraRotation, 1));
             // rotate player
             //planet.RotateAround(planet.position, Vector3.up, 90);
             //hasRotated = true;

@@ -11,7 +11,9 @@ public class RingArray : MonoBehaviour
     public enum Ring
     {
         one,
-        two
+        two,
+        three,
+        four
     }
     public Ring ringID;
 
@@ -24,20 +26,53 @@ public class RingArray : MonoBehaviour
     public float radius;
     public float rotation;
 
-    private List<GameObject> enemies;
+    [HideInInspector]
+    public List<GameObject> enemies;
+
+    [HideInInspector]
+    private bool canFire;
+    public bool CanFire
+    {
+        get { return canFire; }
+        set { canFire = value;
+            print(transform.name + " Canfire "+value);
+        }
+    }
+
+    float fireTimer;
+    float fireDelay = 1;
 
     // Start is called before the first frame update
     void Start()
     {
         enemies = new List<GameObject>();
         CreateEnemiesAroundPoint(numberOfEnemies, positionTransform.position, radius);
+
+        fireTimer = Time.time + fireDelay;
     }
 
     // Update is called once per frame
     void Update()
     {
         SpaceEnemies();
-        PrintDebug();
+        HandleFiring();
+        if (transform.name == "Ring")
+        {
+            //print(transform.name + " "+canFire);
+        }
+    }
+
+    void HandleFiring()
+    {
+        if (!CanFire) return;
+        if (Time.time > fireTimer)
+        {
+            fireTimer = Time.time + fireDelay;
+            int enemyCount = enemies.Count;
+            int randomEnemy = Random.Range(0, enemies.Count - 1);
+            enemies[randomEnemy].GetComponent<EnemyController>().HandleFiring();
+            //print("RingArray trigger fire");
+        }
     }
 
     void PrintDebug()
@@ -49,7 +84,7 @@ public class RingArray : MonoBehaviour
         //    i++;
         //}
         string s = "";
-        for (int i=0; i < enemies.Count; i++)
+        for (int i = 0; i < enemies.Count; i++)
         {
             s += "> " + i + " " + enemies[i].name + "\n";
         }
@@ -62,12 +97,12 @@ public class RingArray : MonoBehaviour
         {
             //print("Ring " + ringID + " has less enemies in it");
         }
-        
+
     }
-    public void RemoveEnemy (GameObject enemy)
+    public void RemoveEnemy(GameObject enemy)
     {
         // Removes enemy from the list
-        if (enemies.Count >0)
+        if (enemies.Count > 0)
         {
             enemies.Remove(enemy);
         }
@@ -115,5 +150,29 @@ public class RingArray : MonoBehaviour
 
         if (ringID == Ring.one) transform.RotateAround(point, transform.right, 90);
         if (ringID == Ring.two) transform.RotateAround(point, transform.forward, 90);
+        if (ringID == Ring.three)
+        {
+            transform.RotateAround(
+                point,
+                transform.right,
+                90);
+            transform.RotateAround(
+                point,
+                transform.forward,
+                45);
+        }
+        if (ringID == Ring.four)
+        {
+            transform.RotateAround(
+                point,
+                transform.right,
+                90);
+            transform.RotateAround(
+                point,
+                transform.forward,
+                -45);
+        }
+
+
     }
 }
