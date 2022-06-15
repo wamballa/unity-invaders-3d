@@ -10,7 +10,9 @@ public class MakeTransparent : MonoBehaviour
     [SerializeField] private Transform player;
     private Transform camera;
 
-    
+    private SphereCollider sphereCollider;
+
+
     public float transDistance = 10f;
 
     public List<GameObject> objectsInRange;
@@ -21,16 +23,20 @@ public class MakeTransparent : MonoBehaviour
     {
         //currentlyInTheWay = new List<IAmInTheWay>();
         //alreadyTransparent = new List<IAmInTheWay>();
-
-        objectsInRange = new List<GameObject>();
-
         camera = this.gameObject.transform;
+        objectsInRange = new List<GameObject>();
+        sphereCollider = GetComponent<SphereCollider>();
+        float dist = Vector3.Magnitude(planet.position - camera.position);
+        sphereCollider.radius = dist;
+        //print(dist);
+
+
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        //HandleTransparency();
         //TransparentNearCamera();
         //GetAllObjectsInTheWay();
 
@@ -38,54 +44,108 @@ public class MakeTransparent : MonoBehaviour
         //MakeObjectsSolid();
     }
 
-    private void OnCollisionEnter(Collision collision)
+    //private void OnCollisionEnter(Collision collision)
+    //{
+    //    if (!objectsInRange.Contains(collision.gameObject))
+    //    {
+
+
+    //        objectsInRange.Add(collision.gameObject);
+
+
+    //        if (collision.gameObject.TryGetComponent<IAmInTheWay>(out IAmInTheWay inTheWay))
+    //        {
+    //            //objectsInRange.Add(collision.gameObject);
+    //        }
+    //    }
+    //}
+    //private void OnCollisionStay(Collision collision)
+    //{
+    //    print("collision " + collision.transform.name);
+    //    if (!objectsInRange.Contains(collision.gameObject))
+    //    {
+    //        objectsInRange.Add(collision.gameObject);
+    //        if (collision.gameObject.TryGetComponent<IAmInTheWay>(out IAmInTheWay inTheWay))
+    //        {
+    //            //objectsInRange.Add(collision.gameObject);
+    //        }
+    //    }
+    //}
+    private void OnTriggerEnter(Collider other)
     {
-        if (!objectsInRange.Contains(collision.gameObject))
+        //print("trigger " + other.transform.name);
+        if (!objectsInRange.Contains(other.gameObject))
         {
-
-
-            objectsInRange.Add(collision.gameObject);
-
-
-            if (collision.gameObject.TryGetComponent<IAmInTheWay>(out IAmInTheWay inTheWay))
+            if (other.gameObject.TryGetComponent<IAmInTheWay>(out IAmInTheWay inTheWay))
             {
-                //objectsInRange.Add(collision.gameObject);
+                objectsInRange.Add(other.gameObject);
+                inTheWay.ShowTransparent();
             }
         }
     }
-    private void OnCollisionExit(Collision collision)
+    private void OnTriggerExit(Collider other)
     {
-        
+        //if (objectsInRange.Contains(other.gameObject))
+        //{
+        //    objectsInRange.Remove(other.gameObject);
+        //}
+
+        if (other.gameObject.TryGetComponent<IAmInTheWay>(out IAmInTheWay inTheWay))
+        {
+            objectsInRange.Remove(other.gameObject);
+            inTheWay.ShowSolid();
+        }
+
     }
+    //private void OnCollisionExit(Collision collision)
+    //{
+
+    //}
+
+    void HandleTransparency()
+    {
+        if (objectsInRange.Count > 0)
+        {
+            IAmInTheWay[] inTheWays = GameObject.FindObjectsOfType<IAmInTheWay>();
+            foreach (IAmInTheWay i in inTheWays)
+            {
+                i.ShowSolid();
+            }
+
+        }
+    }
+
 }
+
+
 
 //void TransparentNearCamera()
 //{
 
-    //float distance = Vector3.Magnitude( camera.position -planet.position);
+//float distance = Vector3.Magnitude( camera.position -planet.position);
 
-    //RaycastHit[] hits =  Physics.SphereCastAll(
-    //    transform.position, 
-    //    transDistance, 
-    //    Vector3.zero);
+//RaycastHit[] hits =  Physics.SphereCastAll(
+//    transform.position, 
+//    transDistance, 
+//    Vector3.zero);
 
-    //print("hits length " + hits.Length);
+//print("hits length " + hits.Length);
 
-    //if (hits.Length > 0)
-    //{
-    //    IAmInTheWay[] inTheWays = GameObject.FindObjectsOfType<IAmInTheWay>();
-    //    foreach (IAmInTheWay i in inTheWays)
-    //    {
-    //        i.ShowSolid();
-    //    }
-    //    foreach (var hit in hits)
-    //    {
-    //        if (hit.collider.gameObject.TryGetComponent(out IAmInTheWay inTheWay))
-    //        {
-    //            inTheWay.ShowTransparent();
-    //        }
-    //    }
-    //}
+//if (hits.Length > 0)
+//{
+//    IAmInTheWay[] inTheWays = GameObject.FindObjectsOfType<IAmInTheWay>();
+//    foreach (IAmInTheWay i in inTheWays)
+//    {
+//        i.ShowSolid();
+//    }
+//    foreach (var hit in hits)
+//    {
+//        if (hit.collider.gameObject.TryGetComponent(out IAmInTheWay inTheWay))
+//        {
+//            inTheWay.ShowTransparent();
+//        }
+//    }
+//}
 //}
 
 //private void OnDrawGizmos()

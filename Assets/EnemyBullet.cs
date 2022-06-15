@@ -25,9 +25,17 @@ public class EnemyBullet : MonoBehaviour
         Gizmos.DrawLine(transform.position, transform.position + transform.forward);
     }
 
-    private void OnCollisionEnter(Collision collision)
+    //private void OnCollisionEnter(Collision collision)
+    //{
+    //    if (collision.transform.CompareTag("Defence"))
+    //    {
+    //        print("Hit defence");
+    //    }
+    //    Destroy(gameObject);
+    //}
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.transform.CompareTag("Defence"))
+        if (other.transform.CompareTag("Defence"))
         {
             print("Hit defence");
         }
