@@ -4,16 +4,42 @@ using UnityEngine;
 
 public class RIngMove : MonoBehaviour
 {
+
+    private float delay = 0.5f;
+
+    float timer1;
+    float timer2;
+
+    bool canRotate = true;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        timer1 = Time.time + delay;
     }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        //transform.RotateAround(transform.position, Vector3.forward, 1f);
-        transform.RotateAround(transform.position, transform.up, 1f);
+
+        if (canRotate)
+        {
+            if (Time.time > timer1)
+            {
+                canRotate = false;
+                timer2 = Time.time + delay;
+            }
+                transform.RotateAround(transform.position, transform.up, 1f);
+        }
+        else
+        {
+            if (Time.time > timer2)
+            {
+                canRotate = true;
+                timer1 = Time.time + delay;
+            }
+        }
+
+
+
     }
 }
