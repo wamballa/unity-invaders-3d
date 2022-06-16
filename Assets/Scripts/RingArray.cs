@@ -35,7 +35,7 @@ public class RingArray : MonoBehaviour
     {
         get { return canFire; }
         set { canFire = value;
-            print(transform.name + " Canfire "+value);
+            //print(transform.name + " Canfire "+value);
         }
     }
 

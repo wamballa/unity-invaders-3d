@@ -5,12 +5,16 @@ using UnityEngine;
 public class EnemyManager : MonoBehaviour
 {
 
-    [SerializeField] private RingArray ring1;
+    [SerializeField] private RingArray[] enemyRings;
 
     // Start is called before the first frame update
     void Start()
     {
-        ring1.CanFire = true;
+        foreach (RingArray ring in enemyRings)
+        {
+            ring.CanFire = true;
+        }
+        
     }
 
     // Update is called once per frame

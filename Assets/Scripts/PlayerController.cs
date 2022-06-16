@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
 
     private float cameraRotation = 45;
 
-    private bool hasRotated = false;
+    //private bool hasRotated = false;
     bool canRotate = true;
 
     // Start is called before the first frame update
