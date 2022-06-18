@@ -5,7 +5,8 @@ using UnityEngine;
 public class RIngMove : MonoBehaviour
 {
 
-    private float delay = 0.5f;
+    private float rotateDelay = 0.5f;
+    private float pauseDelay = 2f;
 
     float timer1;
     float timer2;
@@ -15,7 +16,7 @@ public class RIngMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        timer1 = Time.time + delay;
+        timer1 = Time.time + rotateDelay;
     }
 
     void FixedUpdate()
@@ -26,16 +27,16 @@ public class RIngMove : MonoBehaviour
             if (Time.time > timer1)
             {
                 canRotate = false;
-                timer2 = Time.time + delay;
+                timer2 = Time.time + pauseDelay;
             }
-                transform.RotateAround(transform.position, transform.up, 1f);
+            transform.RotateAround(transform.position, transform.up, 0.5f);
         }
         else
         {
             if (Time.time > timer2)
             {
                 canRotate = true;
-                timer1 = Time.time + delay;
+                timer1 = Time.time + rotateDelay;
             }
         }
 

@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
     public Transform bulletSpawnPoint;
     public GameObject bulletPF;
 
-    private float cameraRotation = 45;
+    private float cameraRotation = 90;
 
     //private bool hasRotated = false;
     bool canRotate = true;
@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -46,7 +46,8 @@ public class PlayerController : MonoBehaviour
     void HandleInput()
     {
 
-        if (Input.GetKey(KeyCode.LeftArrow)) {
+        if (Input.GetKey(KeyCode.LeftArrow))
+        {
 
             transform.RotateAround(planet.position, Vector3.forward, 1);
 
@@ -84,7 +85,7 @@ public class PlayerController : MonoBehaviour
 
     void Fire()
     {
-        GameObject bullet = Instantiate(bulletPF, bulletSpawnPoint.position, transform.rotation) ;
+        GameObject bullet = Instantiate(bulletPF, bulletSpawnPoint.position, transform.rotation);
     }
 
 }
