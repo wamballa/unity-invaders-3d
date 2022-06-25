@@ -9,10 +9,19 @@ public class PlayerController : MonoBehaviour
     public Transform bulletSpawnPoint;
     public GameObject bulletPF;
 
-    private float cameraRotation = 90;
+    private float cameraRotation = 45;
+
+    private float currentAngle;
 
     //private bool hasRotated = false;
-    bool canRotate = true;
+    bool canRotate = false;
+    int rotationDirection;
+
+    Vector3 byAngle;
+    Quaternion fromAngle;
+    Quaternion toAngle;
+
+    float targetRotation;
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +33,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         HandleInput();
+        Rotate();
     }
 
     float rotationT;
@@ -43,6 +53,32 @@ public class PlayerController : MonoBehaviour
             canRotate = true;
         }
     }
+    void Rotate()
+    {
+        if (canRotate)
+        {
+            if (rotationDirection == 1)
+            {
+                currentAngle++;
+                Vector3 dir = new Vector3(0, 1, 0) * rotationDirection;
+                planet.Rotate(dir * 1f);
+                if (currentAngle >= targetRotation)
+                {
+                    canRotate = false;
+                }
+            }
+            else if (rotationDirection == -1)
+            {
+                currentAngle--;
+                Vector3 dir = new Vector3(0, 1, 0) * rotationDirection;
+                planet.Rotate(dir * 1f);
+                if (currentAngle <= targetRotation)
+                {
+                    canRotate = false;
+                }
+            }
+        }
+    }
     void HandleInput()
     {
 
@@ -60,22 +96,22 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyUp(KeyCode.A))
         {
-            if (canRotate)
+            //StartCoroutine(RotateMe(Vector3.up * cameraRotation, 1));
+            if (!canRotate)
             {
-                //print("rotate false");
-                StartCoroutine(RotateMe(Vector3.up * cameraRotation, 1));
-                // rotate player
-                //planet.RotateAround(planet.position, Vector3.up, 90);
-                //hasRotated = true;
+                targetRotation -= cameraRotation;
+                rotationDirection = -1;
+                canRotate = true;
             }
         }
         if (Input.GetKeyUp(KeyCode.D))
         {
-            //print("rotate false");
-            StartCoroutine(RotateMe(Vector3.up * -cameraRotation, 1));
-            // rotate player
-            //planet.RotateAround(planet.position, Vector3.up, 90);
-            //hasRotated = true;
+            if (!canRotate)
+            {
+                targetRotation += cameraRotation;
+                rotationDirection = 1;
+                canRotate = true;
+            }
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {

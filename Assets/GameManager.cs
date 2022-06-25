@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
     {
         if ( planetHealth <= 0)
         {
-            print("Planet Dead");
+            //print("Planet Dead");
         }
     }
 }

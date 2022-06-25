@@ -10,21 +10,25 @@ public class MakeTransparent : MonoBehaviour
     [SerializeField] private Transform player;
     private Transform camera;
 
+    [SerializeField] private GameObject[] defences;
+    [SerializeField] private GameObject[] rings;
+
     private SphereCollider sphereCollider;
 
 
     public float transDistance = 10f;
 
-    public List<GameObject> objectsInRange;
+    //public List<GameObject> objectsInRange;
 
 
     // Start is called before the first frame update
     void Awake()
     {
+        print("AWAKE");
         //currentlyInTheWay = new List<IAmInTheWay>();
         //alreadyTransparent = new List<IAmInTheWay>();
         camera = this.gameObject.transform;
-        objectsInRange = new List<GameObject>();
+        //objectsInRange = new List<GameObject>();
         sphereCollider = GetComponent<SphereCollider>();
         float dist = Vector3.Magnitude(planet.position - camera.position);
         sphereCollider.radius = dist;
@@ -42,6 +46,10 @@ public class MakeTransparent : MonoBehaviour
 
         //MakeObjectsTransparent();
         //MakeObjectsSolid();
+
+        
+        HandleTransparency();
+
     }
 
     //private void OnCollisionEnter(Collision collision)
@@ -73,28 +81,28 @@ public class MakeTransparent : MonoBehaviour
     //}
     private void OnTriggerEnter(Collider other)
     {
-        //print("trigger " + other.transform.name);
-        if (!objectsInRange.Contains(other.gameObject))
-        {
-            if (other.gameObject.TryGetComponent<IAmInTheWay>(out IAmInTheWay inTheWay))
-            {
-                objectsInRange.Add(other.gameObject);
-                inTheWay.ShowTransparent();
-            }
-        }
+        ////print("trigger " + other.transform.name);
+        //if (!objectsInRange.Contains(other.gameObject))
+        //{
+        //    if (other.gameObject.TryGetComponent<IAmInTheWay>(out IAmInTheWay inTheWay))
+        //    {
+        //        objectsInRange.Add(other.gameObject);
+        //        inTheWay.ShowTransparent();
+        //    }
+        //}
     }
     private void OnTriggerExit(Collider other)
     {
-        //if (objectsInRange.Contains(other.gameObject))
+        ////if (objectsInRange.Contains(other.gameObject))
+        ////{
+        ////    objectsInRange.Remove(other.gameObject);
+        ////}
+
+        //if (other.gameObject.TryGetComponent<IAmInTheWay>(out IAmInTheWay inTheWay))
         //{
         //    objectsInRange.Remove(other.gameObject);
+        //    inTheWay.ShowSolid();
         //}
-
-        if (other.gameObject.TryGetComponent<IAmInTheWay>(out IAmInTheWay inTheWay))
-        {
-            objectsInRange.Remove(other.gameObject);
-            inTheWay.ShowSolid();
-        }
 
     }
     //private void OnCollisionExit(Collision collision)
@@ -104,15 +112,30 @@ public class MakeTransparent : MonoBehaviour
 
     void HandleTransparency()
     {
-        if (objectsInRange.Count > 0)
-        {
-            IAmInTheWay[] inTheWays = GameObject.FindObjectsOfType<IAmInTheWay>();
-            foreach (IAmInTheWay i in inTheWays)
-            {
-                i.ShowSolid();
-            }
+        //if (objectsInRange.Count > 0)
+        //{
+        //    IAmInTheWay[] inTheWays = GameObject.FindObjectsOfType<IAmInTheWay>();
+        //    foreach (IAmInTheWay i in inTheWays)
+        //    {
+        //        i.ShowSolid();
+        //    }
 
+        //} 
+
+        // Defences
+        foreach (GameObject go in defences)
+        {
+            Transform[] allChildren = go.GetComponentsInChildren<Transform>();
+
+            foreach(Transform child in allChildren)
+            {
+                if (child.rotation.y != 0)
+                {
+                    child.GetComponent<IAmInTheWay>().ShowTransparent();
+                }
+            }
         }
+
     }
 
 }

@@ -13,17 +13,20 @@ public class RingArray : MonoBehaviour
         one,
         two,
         three,
-        four
+        four,
+        five,
+        six,
+        seven
     }
     public Ring ringID;
 
-    public TMP_Text debugText;
+    //public TMP_Text debugText;
 
     public GameObject enemyPrefab;
     [Range(0, 10)]
     public int numberOfEnemies;
     public Transform positionTransform;
-    public float radius;
+    private float radius;
     public float rotation;
 
     [HideInInspector]
@@ -34,7 +37,9 @@ public class RingArray : MonoBehaviour
     public bool CanFire
     {
         get { return canFire; }
-        set { canFire = value;
+        set
+        {
+            canFire = value;
             //print(transform.name + " Canfire "+value);
         }
     }
@@ -42,9 +47,14 @@ public class RingArray : MonoBehaviour
     float fireTimer;
     float fireDelay = 1;
 
+    private int angleInt;
+
     // Start is called before the first frame update
     void Start()
     {
+        ArrayManager enemyManager = transform.GetComponentInParent<ArrayManager>();
+        if (enemyManager == null) print("ERROR; no enemy manager");
+        radius = enemyManager.radius;
         enemies = new List<GameObject>();
         CreateEnemiesAroundPoint(numberOfEnemies, positionTransform.position, radius);
 
@@ -56,9 +66,95 @@ public class RingArray : MonoBehaviour
     {
         SpaceEnemies();
         HandleFiring();
-        if (transform.name == "Ring")
+        HandleTransparency();
+    }
+
+    public int GetRotation()
+    {
+        return angleInt;
+    }
+
+    private void HandleTransparency()
+    {
+        //float angle;
+        //Vector3 axis = Vector3.zero;
+        //transform.rotation.ToAngleAxis(out angle, out axis);
+        float localRotation = transform.rotation.eulerAngles.y;
+        angleInt = Mathf.RoundToInt(localRotation);
+
+        //if (ringID == Ring.four)
+        //{
+        //    if (angleInt == 180 || angleInt == 0)
+        //    {
+        //        foreach (GameObject go in enemies)
+        //        {
+        //            IAmInTheWay[] allChildren = go.GetComponentsInChildren<IAmInTheWay>();
+
+        //            if (allChildren.Length != 0)
+        //                foreach (IAmInTheWay child in allChildren)
+        //                {
+        //                    print("set solid ");
+        //                    child.ShowSolid();
+        //                }
+        //        }
+        //    }
+        //    else
+        //    {
+        //        foreach (GameObject go in enemies)
+        //        {
+        //            IAmInTheWay[] allChildren = go.GetComponentsInChildren<IAmInTheWay>();
+
+        //            if (allChildren.Length != 0)
+        //                foreach (IAmInTheWay child in allChildren)
+        //                {
+        //                    child.ShowSolid();
+        //                }
+        //        }
+        //    }
+        //}
+
+        if (angleInt != 0)
+        //if (angleInt % 90 != 0 || angleInt == 0 || angleInt == 180)
         {
-            //print(transform.name + " "+canFire);
+            foreach (GameObject go in enemies)
+            {
+                IAmInTheWay[] allChildren = go.GetComponentsInChildren<IAmInTheWay>();
+                if (allChildren.Length != 0)
+                    foreach (IAmInTheWay child in allChildren)
+                    {
+
+                        child.ShowTransparent();
+                    }
+            }
+        }
+        else
+        {
+            foreach (GameObject go in enemies)
+            {
+                IAmInTheWay[] allChildren = go.GetComponentsInChildren<IAmInTheWay>();
+
+                if (allChildren.Length != 0)
+                    foreach (IAmInTheWay child in allChildren)
+                    {
+                        child.ShowSolid();
+                    }
+            }
+        }
+        if (ringID == Ring.four)
+        {
+            if (angleInt == 180 || angleInt == 0)
+            {
+                foreach (GameObject go in enemies)
+                {
+                    IAmInTheWay[] allChildren = go.GetComponentsInChildren<IAmInTheWay>();
+
+                    if (allChildren.Length != 0)
+                        foreach (IAmInTheWay child in allChildren)
+                        {
+                            child.ShowSolid();
+                        }
+                }
+            }
         }
     }
 
@@ -88,7 +184,7 @@ public class RingArray : MonoBehaviour
         {
             s += "> " + i + " " + enemies[i].name + "\n";
         }
-        debugText.text = s;
+        //debugText.text = s;
 
     }
     void SpaceEnemies()
@@ -112,23 +208,24 @@ public class RingArray : MonoBehaviour
 
         for (int i = 0; i < num; i++)
         {
-
-            /* Distance around the circle */
-            //var radians = 2 * Mathf.PI / num * i; // objects overlap
             float radians = i * 2 * Mathf.PI / num; // no overlap
 
             /* Get the vector direction */
             float vertical = Mathf.Sin(radians);
             float horizontal = Mathf.Cos(radians);
 
-            Vector3 spawnDir = new Vector3(horizontal, 0, vertical);
+            //Vector3 spawnDir = new Vector3(horizontal, 0, vertical);
+            Vector3 spawnDir = new Vector3(horizontal, vertical, 0);
 
             /* Get the spawn position */
             Vector3 spawnPos = point + spawnDir * radius; // Radius is just the distance away from the point
 
             /* Now spawn */
-            //var enemy = Instantiate(enemyPrefab, spawnPos, Quaternion.identity) as GameObject;
-            GameObject enemy = Instantiate(enemyPrefab, spawnPos, transform.rotation);
+            GameObject enemy = Instantiate(
+                enemyPrefab,
+                spawnPos,
+                transform.rotation);
+
             enemy.name = ringID + " enemy " + i;
 
             enemies.Add(enemy);
@@ -137,42 +234,48 @@ public class RingArray : MonoBehaviour
             {
                 go.transform.LookAt(point);
                 go.transform.SetParent(transform);
-                //go.transform.RotateAround(point, transform.forward, 90f);
             }
-
-
-            /* Rotate the enemy to face towards player */
-            //enemy.transform.LookAt(point);
-
-            /* Adjust height */
-            //enemy.transform.Translate(new Vector3(0, enemy.transform.localScale.y / 2, 0));
         }
 
-        if (ringID == Ring.one) transform.RotateAround(point, transform.right, 90);
-        if (ringID == Ring.two) transform.RotateAround(point, transform.forward, 90);
-        if (ringID == Ring.three)
-        {
-            transform.RotateAround(
-                point,
-                transform.right,
-                90);
-            transform.RotateAround(
-                point,
-                transform.forward,
-                45);
-        }
-        if (ringID == Ring.four)
-        {
-            transform.RotateAround(
-                point,
-                transform.right,
-                90);
-            transform.RotateAround(
-                point,
-                transform.forward,
-                -45);
-        }
+        int rot = 0;
+        if (ringID == Ring.one) { }// do nothing;
+        rot += 45;
+        if (ringID == Ring.two) transform.RotateAround(point, transform.up, rot);
+        rot += 45;
+        if (ringID == Ring.three) transform.RotateAround(point, transform.up, rot);
+        rot += 45;
+        if (ringID == Ring.four) transform.RotateAround(point, transform.up, rot);
+        rot += 45;
+        if (ringID == Ring.five) transform.RotateAround(point, transform.up, rot);
+        rot += 45;
+        if (ringID == Ring.six) transform.RotateAround(point, transform.up, rot);
+        rot += 45;
+        if (ringID == Ring.seven) transform.RotateAround(point, transform.up, rot);
+        //if (ringID == Ring.three)
+        //{
+        //    transform.RotateAround(
+        //        point,
+        //        transform.right,
+        //        90);
+        //    transform.RotateAround(
+        //        point,
+        //        transform.forward,
+        //        45);
+        //}
+        //if (ringID == Ring.four)
+        //{
+        //    transform.RotateAround(
+        //        point,
+        //        transform.right,
+        //        90);
+        //    transform.RotateAround(
+        //        point,
+        //        transform.forward,
+        //        -45);
+        //}
 
 
     }
+
+
 }
