@@ -171,22 +171,6 @@ public class RingArray : MonoBehaviour
         }
     }
 
-    void PrintDebug()
-    {
-        //int i = 0;
-        //foreach (GameObject go in enemies)
-        //{
-        //    debugText.text += "> "+ i+ " "+go.name + "\n";
-        //    i++;
-        //}
-        string s = "";
-        for (int i = 0; i < units.Count; i++)
-        {
-            s += "> " + i + " " + units[i].name + "\n";
-        }
-        //debugText.text = s;
-
-    }
     void SpaceEnemies()
     {
         if (units.Count < numberOfEnemies)

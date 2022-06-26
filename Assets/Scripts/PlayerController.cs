@@ -33,26 +33,14 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         HandleInput();
+
+    }
+
+    private void FixedUpdate()
+    {
         Rotate();
     }
 
-    float rotationT;
-    float timer;
-    float strikeSpeed;
-
-    IEnumerator RotateMe(Vector3 byAngles, float inTime)
-    {
-        //print("Can Rotate");
-        canRotate = false;
-        var fromAngle = planet.rotation;
-        var toAngle = Quaternion.Euler(planet.eulerAngles + byAngles);
-        for (var t = 0f; t < 1; t += Time.deltaTime / inTime)
-        {
-            planet.rotation = Quaternion.Slerp(fromAngle, toAngle, t);
-            yield return null;
-            canRotate = true;
-        }
-    }
     void Rotate()
     {
         if (canRotate)
