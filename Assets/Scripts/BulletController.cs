@@ -27,4 +27,21 @@ public class BulletController : MonoBehaviour
     {
         Gizmos.DrawRay(transform.position, transform.forward);
     }
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.transform.CompareTag("Invader"))
+        {
+            print("Hit Invader");
+            other.GetComponentInParent<RingArray>().RemoveEnemy(other.gameObject);
+            Destroy(other.gameObject);
+            Destroy(gameObject);
+        }
+        if (other.transform.CompareTag("Defence"))
+        {
+            print("Hit Defence");
+            Destroy(gameObject);
+        }
+    }
 }

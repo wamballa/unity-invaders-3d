@@ -22,15 +22,15 @@ public class RingArray : MonoBehaviour
 
     //public TMP_Text debugText;
 
-    public GameObject enemyPrefab;
+    public GameObject prefab;
     [Range(0, 10)]
     public int numberOfEnemies;
     public Transform positionTransform;
     private float radius;
-    public float rotation;
+    //public float rotation;
 
     [HideInInspector]
-    public List<GameObject> enemies;
+    public List<GameObject> units;
 
     [HideInInspector]
     private bool canFire;
@@ -55,7 +55,7 @@ public class RingArray : MonoBehaviour
         ArrayManager enemyManager = transform.GetComponentInParent<ArrayManager>();
         if (enemyManager == null) print("ERROR; no enemy manager");
         radius = enemyManager.radius;
-        enemies = new List<GameObject>();
+        units = new List<GameObject>();
         CreateEnemiesAroundPoint(numberOfEnemies, positionTransform.position, radius);
 
         fireTimer = Time.time + fireDelay;
@@ -116,7 +116,7 @@ public class RingArray : MonoBehaviour
         if (angleInt != 0)
         //if (angleInt % 90 != 0 || angleInt == 0 || angleInt == 180)
         {
-            foreach (GameObject go in enemies)
+            foreach (GameObject go in units)
             {
                 IAmInTheWay[] allChildren = go.GetComponentsInChildren<IAmInTheWay>();
                 if (allChildren.Length != 0)
@@ -129,7 +129,7 @@ public class RingArray : MonoBehaviour
         }
         else
         {
-            foreach (GameObject go in enemies)
+            foreach (GameObject go in units)
             {
                 IAmInTheWay[] allChildren = go.GetComponentsInChildren<IAmInTheWay>();
 
@@ -144,7 +144,7 @@ public class RingArray : MonoBehaviour
         {
             if (angleInt == 180 || angleInt == 0)
             {
-                foreach (GameObject go in enemies)
+                foreach (GameObject go in units)
                 {
                     IAmInTheWay[] allChildren = go.GetComponentsInChildren<IAmInTheWay>();
 
@@ -164,9 +164,9 @@ public class RingArray : MonoBehaviour
         if (Time.time > fireTimer)
         {
             fireTimer = Time.time + fireDelay;
-            int enemyCount = enemies.Count;
-            int randomEnemy = Random.Range(0, enemies.Count - 1);
-            enemies[randomEnemy].GetComponent<EnemyController>().HandleFiring();
+            int enemyCount = units.Count;
+            int randomEnemy = Random.Range(0, units.Count - 1);
+            units[randomEnemy].GetComponent<EnemyController>().HandleFiring();
             //print("RingArray trigger fire");
         }
     }
@@ -180,16 +180,16 @@ public class RingArray : MonoBehaviour
         //    i++;
         //}
         string s = "";
-        for (int i = 0; i < enemies.Count; i++)
+        for (int i = 0; i < units.Count; i++)
         {
-            s += "> " + i + " " + enemies[i].name + "\n";
+            s += "> " + i + " " + units[i].name + "\n";
         }
         //debugText.text = s;
 
     }
     void SpaceEnemies()
     {
-        if (enemies.Count < numberOfEnemies)
+        if (units.Count < numberOfEnemies)
         {
             //print("Ring " + ringID + " has less enemies in it");
         }
@@ -198,9 +198,9 @@ public class RingArray : MonoBehaviour
     public void RemoveEnemy(GameObject enemy)
     {
         // Removes enemy from the list
-        if (enemies.Count > 0)
+        if (units.Count > 0)
         {
-            enemies.Remove(enemy);
+            units.Remove(enemy);
         }
     }
     public void CreateEnemiesAroundPoint(int num, Vector3 point, float radius)
@@ -221,60 +221,50 @@ public class RingArray : MonoBehaviour
             Vector3 spawnPos = point + spawnDir * radius; // Radius is just the distance away from the point
 
             /* Now spawn */
-            GameObject enemy = Instantiate(
-                enemyPrefab,
+            GameObject unit = Instantiate(
+                prefab,
                 spawnPos,
                 transform.rotation);
 
-            enemy.name = ringID + " enemy " + i;
+            unit.name = ringID.ToString() + i;
 
-            enemies.Add(enemy);
+            units.Add(unit);
 
-            foreach (GameObject go in enemies)
+            foreach (GameObject go in units)
             {
                 go.transform.LookAt(point);
                 go.transform.SetParent(transform);
             }
         }
 
-        int rot = 0;
-        if (ringID == Ring.one) { }// do nothing;
-        rot += 45;
-        if (ringID == Ring.two) transform.RotateAround(point, transform.up, rot);
-        rot += 45;
-        if (ringID == Ring.three) transform.RotateAround(point, transform.up, rot);
-        rot += 45;
-        if (ringID == Ring.four) transform.RotateAround(point, transform.up, rot);
-        rot += 45;
-        if (ringID == Ring.five) transform.RotateAround(point, transform.up, rot);
-        rot += 45;
-        if (ringID == Ring.six) transform.RotateAround(point, transform.up, rot);
-        rot += 45;
-        if (ringID == Ring.seven) transform.RotateAround(point, transform.up, rot);
-        //if (ringID == Ring.three)
-        //{
-        //    transform.RotateAround(
-        //        point,
-        //        transform.right,
-        //        90);
-        //    transform.RotateAround(
-        //        point,
-        //        transform.forward,
-        //        45);
-        //}
-        //if (ringID == Ring.four)
-        //{
-        //    transform.RotateAround(
-        //        point,
-        //        transform.right,
-        //        90);
-        //    transform.RotateAround(
-        //        point,
-        //        transform.forward,
-        //        -45);
-        //}
+        if (prefab.transform.CompareTag("Defence"))
+        {
+            units[2].transform.RotateAround(
+                units[2].transform.position,
+                units[2].transform.forward,
+                90);
+            units[6].transform.RotateAround(
+                units[6].transform.position,
+                units[6].transform.forward,
+                90);
+        }
 
-
+        {
+            int rot = 0;
+            if (ringID == Ring.one) { }// do nothing;
+            rot += 45;
+            if (ringID == Ring.two) transform.RotateAround(point, transform.up, rot);
+            rot += 45;
+            if (ringID == Ring.three) transform.RotateAround(point, transform.up, rot);
+            rot += 45;
+            if (ringID == Ring.four) transform.RotateAround(point, transform.up, rot);
+            rot += 45;
+            if (ringID == Ring.five) transform.RotateAround(point, transform.up, rot);
+            rot += 45;
+            if (ringID == Ring.six) transform.RotateAround(point, transform.up, rot);
+            rot += 45;
+            if (ringID == Ring.seven) transform.RotateAround(point, transform.up, rot);
+        }
     }
 
 

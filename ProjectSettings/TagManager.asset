@@ -4,8 +4,11 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Enemy2
   - Bullet
+  - Planet
+  - Defence
+  - Invader
+  - Enemy2
   - Enemy1
   layers:
   - Default
