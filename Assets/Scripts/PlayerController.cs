@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     public GameObject bulletPF;
 
     private float cameraRotation = 45;
+    private float rotationSpeed = 0.5f;
 
     private float currentAngle;
 
@@ -59,9 +60,11 @@ public class PlayerController : MonoBehaviour
         {
             if (rotationDirection == 1)
             {
-                currentAngle++;
+                //currentAngle++;
+                currentAngle = currentAngle + rotationSpeed;
                 Vector3 dir = new Vector3(0, 1, 0) * rotationDirection;
-                planet.Rotate(dir * 1f);
+                //planet.Rotate(dir * 1f);
+                planet.Rotate(dir * rotationSpeed);
                 if (currentAngle >= targetRotation)
                 {
                     canRotate = false;
@@ -69,9 +72,11 @@ public class PlayerController : MonoBehaviour
             }
             else if (rotationDirection == -1)
             {
-                currentAngle--;
+                //currentAngle--;
+                currentAngle = currentAngle - rotationSpeed;
                 Vector3 dir = new Vector3(0, 1, 0) * rotationDirection;
-                planet.Rotate(dir * 1f);
+                //planet.Rotate(dir * 1f);
+                planet.Rotate(dir * rotationSpeed);
                 if (currentAngle <= targetRotation)
                 {
                     canRotate = false;
