@@ -8,19 +8,11 @@ public class ArrayManager : MonoBehaviour
     [SerializeField] private RingArray[] enemyRings;
     public float radius;
 
-    void Start()
-    {
+    [Header("Firing delay")]
+    public float fireDelay = 1;
 
-        foreach (RingArray ring in enemyRings)
-        {
-            ring.CanFire = true;
-        }
-        
-    }
-
-    // Update is called once per frame
-    void Update()
+public float GetFireDelay()
     {
-        
+        return fireDelay;
     }
 }

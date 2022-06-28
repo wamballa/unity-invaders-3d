@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
     public GameObject bulletPF;
 
     private float cameraRotation = 45;
-    private float rotationSpeed = 0.5f;
+    private float rotationSpeed = 0.75f;
 
     private float currentAngle;
 

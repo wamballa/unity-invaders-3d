@@ -53,6 +53,7 @@ public class RingArray : MonoBehaviour
     {
         ArrayManager arrayManager = transform.GetComponentInParent<ArrayManager>();
         if (arrayManager == null) print("ERROR; no enemy manager");
+        fireDelay = arrayManager.GetFireDelay();
         radius = arrayManager.radius;
         units = new List<GameObject>();
         CreateEnemiesAroundPoint(numberOfEnemies, positionTransform.position, radius);
@@ -141,10 +142,10 @@ public class RingArray : MonoBehaviour
             fireTimer = Time.time + fireDelay;
             int enemyCount = units.Count;
             int randomEnemy = Random.Range(0, units.Count - 1);
-            print("Ring array " + transform.name);
-            print("Ring array length " + units.Count);
-            print("random enemy = " + randomEnemy);
-            units[randomEnemy].GetComponent<EnemyController>().HandleFiring();
+            //print("Ring array " + transform.name);
+            //print("Ring array length " + units.Count);
+            //print("random enemy = " + randomEnemy);
+            if (units[randomEnemy] != null) units[randomEnemy].GetComponent<EnemyController>().HandleFiring();
             //print("RingArray trigger fire");
         }
     }
@@ -164,8 +165,13 @@ public class RingArray : MonoBehaviour
         if (units.Count > 0)
         {
             units.Remove(unit);
-            print("Unit array length AFTER " + units.Count);
+
         }
+        for (int i=0; i< units.Count;i++)
+        {
+            if (units[i] == null) units.RemoveAt(i);
+        }
+        print("Unit array length after " + units.Count);
     }
     public void CreateEnemiesAroundPoint(int num, Vector3 point, float radius)
     {
