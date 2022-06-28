@@ -38,10 +38,10 @@ public class BulletController : MonoBehaviour
             Destroy(other.gameObject);
             Destroy(gameObject);
         }
-        if (other.transform.CompareTag("Defence"))
-        {
-            print("Hit Defence");
-            Destroy(gameObject);
-        }
+        //if (other.transform.CompareTag("Defence"))
+        //{
+        //    print("Hit Defence");
+        //    Destroy(gameObject);
+        //}
     }
 }

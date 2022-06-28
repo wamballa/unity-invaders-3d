@@ -27,11 +27,11 @@ public class EnemyBullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.transform.CompareTag("Defence") )
-        {
-            //print("Hit defence");
+        //if (other.transform.CompareTag("Defence") )
+        //{
+        //    //print("Hit defence");
 
-        }
+        //}
         if (other.transform.CompareTag("Planet"))
         {
             GameManager gm = GameObject.Find("GameManager").GetComponent<GameManager>();

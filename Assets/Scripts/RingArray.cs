@@ -29,7 +29,6 @@ public class RingArray : MonoBehaviour
     private float radius;
     //public float rotation;
 
-    [HideInInspector]
     public List<GameObject> units;
 
     [HideInInspector]
@@ -52,9 +51,9 @@ public class RingArray : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        ArrayManager enemyManager = transform.GetComponentInParent<ArrayManager>();
-        if (enemyManager == null) print("ERROR; no enemy manager");
-        radius = enemyManager.radius;
+        ArrayManager arrayManager = transform.GetComponentInParent<ArrayManager>();
+        if (arrayManager == null) print("ERROR; no enemy manager");
+        radius = arrayManager.radius;
         units = new List<GameObject>();
         CreateEnemiesAroundPoint(numberOfEnemies, positionTransform.position, radius);
 
@@ -82,49 +81,21 @@ public class RingArray : MonoBehaviour
         float localRotation = transform.rotation.eulerAngles.y;
         angleInt = Mathf.RoundToInt(localRotation);
 
-        //if (ringID == Ring.four)
-        //{
-        //    if (angleInt == 180 || angleInt == 0)
-        //    {
-        //        foreach (GameObject go in enemies)
-        //        {
-        //            IAmInTheWay[] allChildren = go.GetComponentsInChildren<IAmInTheWay>();
-
-        //            if (allChildren.Length != 0)
-        //                foreach (IAmInTheWay child in allChildren)
-        //                {
-        //                    print("set solid ");
-        //                    child.ShowSolid();
-        //                }
-        //        }
-        //    }
-        //    else
-        //    {
-        //        foreach (GameObject go in enemies)
-        //        {
-        //            IAmInTheWay[] allChildren = go.GetComponentsInChildren<IAmInTheWay>();
-
-        //            if (allChildren.Length != 0)
-        //                foreach (IAmInTheWay child in allChildren)
-        //                {
-        //                    child.ShowSolid();
-        //                }
-        //        }
-        //    }
-        //}
-
         if (angleInt != 0)
-        //if (angleInt % 90 != 0 || angleInt == 0 || angleInt == 180)
         {
             foreach (GameObject go in units)
             {
-                IAmInTheWay[] allChildren = go.GetComponentsInChildren<IAmInTheWay>();
-                if (allChildren.Length != 0)
-                    foreach (IAmInTheWay child in allChildren)
-                    {
+                if (go != null)
+                {
+                    IAmInTheWay[] allChildren = go.GetComponentsInChildren<IAmInTheWay>();
+                    if (allChildren.Length != 0)
+                        foreach (IAmInTheWay child in allChildren)
+                        {
 
-                        child.ShowTransparent();
-                    }
+                            child.ShowTransparent();
+                            CanFire = false;
+                        }
+                }
             }
         }
         else
@@ -137,6 +108,7 @@ public class RingArray : MonoBehaviour
                     foreach (IAmInTheWay child in allChildren)
                     {
                         child.ShowSolid();
+                        CanFire = true;
                     }
             }
         }
@@ -152,6 +124,7 @@ public class RingArray : MonoBehaviour
                         foreach (IAmInTheWay child in allChildren)
                         {
                             child.ShowSolid();
+                            CanFire = true;
                         }
                 }
             }
@@ -161,11 +134,16 @@ public class RingArray : MonoBehaviour
     void HandleFiring()
     {
         if (!CanFire) return;
+        if (prefab.name == "Mothership") return;
+        if (prefab.name == "Defence") return;
         if (Time.time > fireTimer)
         {
             fireTimer = Time.time + fireDelay;
             int enemyCount = units.Count;
             int randomEnemy = Random.Range(0, units.Count - 1);
+            print("Ring array " + transform.name);
+            print("Ring array length " + units.Count);
+            print("random enemy = " + randomEnemy);
             units[randomEnemy].GetComponent<EnemyController>().HandleFiring();
             //print("RingArray trigger fire");
         }
@@ -179,12 +157,14 @@ public class RingArray : MonoBehaviour
         }
 
     }
-    public void RemoveEnemy(GameObject enemy)
+    public void RemoveEnemy(GameObject unit)
     {
         // Removes enemy from the list
+        print("Unit array length before " + units.Count);
         if (units.Count > 0)
         {
-            units.Remove(enemy);
+            units.Remove(unit);
+            print("Unit array length AFTER " + units.Count);
         }
     }
     public void CreateEnemiesAroundPoint(int num, Vector3 point, float radius)
