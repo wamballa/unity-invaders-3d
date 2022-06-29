@@ -34,7 +34,7 @@ public class BulletController : MonoBehaviour
         if (other.transform.CompareTag("Invader"))
         {
             print("Hit Invader");
-            other.GetComponentInParent<RingArray>().RemoveEnemy(other.gameObject);
+            other.GetComponentInParent<BaseRingArray>().RemoveUnit(other.gameObject);
             Destroy(other.gameObject);
             Destroy(gameObject);
         }

@@ -40,7 +40,7 @@ public class EnemyController : EnemyBase
             if (inTheWay.GetIsSolid())
             {
                 // ADD SCORE TO PLAYER
-                transform.GetComponentInParent<RingArray>().RemoveEnemy(
+                transform.GetComponentInParent<BaseRingArray>().RemoveUnit(
     gameObject);
                 Destroy(gameObject);
             }

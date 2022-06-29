@@ -6,12 +6,12 @@ using UnityEngine;
 public class CollissionHandler : MonoBehaviour
 {
 
-    public RingArray ringArray;
+    public BaseRingArray ringArray;
 
     // Start is called before the first frame update
     void Start()
     {
-        ringArray = transform.parent.GetComponent<RingArray>();
+        ringArray = transform.parent.GetComponent<BaseRingArray>();
     }
 
     // Update is called once per frame
@@ -29,7 +29,7 @@ public class CollissionHandler : MonoBehaviour
     {
         if (other.CompareTag("Bullet"))
         {
-            ringArray.RemoveEnemy(gameObject);
+            ringArray.RemoveUnit(gameObject);
             Destroy(gameObject);
             Destroy(other.gameObject);
         }

@@ -186,6 +186,7 @@ MonoBehaviour:
   prefab: {fileID: 6527355763322751690, guid: 1ca2ff29bae5449c79355c92a4cf2b44, type: 3}
   numberOfEnemies: 1
   positionTransform: {fileID: 133571328}
+  radius: 0
   units: []
 --- !u!1 &133571327
 GameObject:
@@ -196,7 +197,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 133571328}
-  - component: {fileID: 133571330}
   - component: {fileID: 133571329}
   m_Layer: 0
   m_Name: ==== ENEMIES ===== (3)
@@ -239,30 +239,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57ff9a2c6b712114ca4adafa854a6707, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyRings: []
   radius: 8
   fireDelay: 0
---- !u!114 &133571330
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 133571327}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b41127c472c2214ea0eb0230bff2ed8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ringArrays:
-  - {fileID: 439188136}
-  - {fileID: 650939329}
-  - {fileID: 100624191}
-  - {fileID: 1764658449}
-  - {fileID: 1956186247}
-  - {fileID: 791778366}
-  - {fileID: 841728706}
-  debugText: {fileID: 1179128468}
 --- !u!1 &150010169
 GameObject:
   m_ObjectHideFlags: 0
@@ -304,13 +282,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 150010169}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 675fc37fd1aa042f78016c9717fd5cdd, type: 3}
+  m_Script: {fileID: 11500000, guid: 50d6cb200eb1b894a9b0265524f7dbbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ringID: 4
   prefab: {fileID: 5363047736125058874, guid: 0ed6fedf167c7b045b2f143dca2f002b, type: 3}
   numberOfEnemies: 8
-  positionTransform: {fileID: 150010170}
+  positionTransform: {fileID: 891838279}
+  radius: 0
   units: []
 --- !u!1 &155564636
 GameObject:
@@ -375,6 +354,7 @@ MonoBehaviour:
   prefab: {fileID: 8817983481161146911, guid: 5ca565c34609e8649b21dc9c12af5950, type: 3}
   numberOfEnemies: 10
   positionTransform: {fileID: 733737019}
+  radius: 0
   units: []
 --- !u!1 &188446754
 GameObject:
@@ -439,6 +419,7 @@ MonoBehaviour:
   prefab: {fileID: 5387323640947031580, guid: 68da16978d94c284cb158ce16bc05b4e, type: 3}
   numberOfEnemies: 10
   positionTransform: {fileID: 1162771558}
+  radius: 0
   units: []
 --- !u!1 &198258627
 GameObject:
@@ -503,6 +484,7 @@ MonoBehaviour:
   prefab: {fileID: 2229540396315634032, guid: d9d2b1e594edb084ea60482b81b239a2, type: 3}
   numberOfEnemies: 10
   positionTransform: {fileID: 239269833}
+  radius: 0
   units: []
 --- !u!1 &219484171
 GameObject:
@@ -544,7 +526,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 239269833}
-  - component: {fileID: 239269835}
   - component: {fileID: 239269834}
   m_Layer: 0
   m_Name: ==== ENEMIES ===== (2)
@@ -587,30 +568,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57ff9a2c6b712114ca4adafa854a6707, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyRings: []
   radius: 7
   fireDelay: 1
---- !u!114 &239269835
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 239269832}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b41127c472c2214ea0eb0230bff2ed8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ringArrays:
-  - {fileID: 1388334755}
-  - {fileID: 391039705}
-  - {fileID: 1591576246}
-  - {fileID: 1559238112}
-  - {fileID: 1210166607}
-  - {fileID: 1400067388}
-  - {fileID: 198258628}
-  debugText: {fileID: 1179128468}
 --- !u!1 &281127006
 GameObject:
   m_ObjectHideFlags: 0
@@ -922,13 +881,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 299071465}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 675fc37fd1aa042f78016c9717fd5cdd, type: 3}
+  m_Script: {fileID: 11500000, guid: 50d6cb200eb1b894a9b0265524f7dbbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ringID: 6
   prefab: {fileID: 5363047736125058874, guid: 0ed6fedf167c7b045b2f143dca2f002b, type: 3}
   numberOfEnemies: 8
-  positionTransform: {fileID: 299071466}
+  positionTransform: {fileID: 891838279}
+  radius: 0
   units: []
 --- !u!1 &307110368
 GameObject:
@@ -993,6 +953,7 @@ MonoBehaviour:
   prefab: {fileID: 5387323640947031580, guid: 68da16978d94c284cb158ce16bc05b4e, type: 3}
   numberOfEnemies: 10
   positionTransform: {fileID: 1162771558}
+  radius: 0
   units: []
 --- !u!1 &330585543
 GameObject:
@@ -1195,6 +1156,7 @@ MonoBehaviour:
   prefab: {fileID: 5387323640947031580, guid: 68da16978d94c284cb158ce16bc05b4e, type: 3}
   numberOfEnemies: 10
   positionTransform: {fileID: 1162771558}
+  radius: 0
   units: []
 --- !u!1 &352125814
 GameObject:
@@ -1259,6 +1221,7 @@ MonoBehaviour:
   prefab: {fileID: 5387323640947031580, guid: 68da16978d94c284cb158ce16bc05b4e, type: 3}
   numberOfEnemies: 10
   positionTransform: {fileID: 1162771558}
+  radius: 0
   units: []
 --- !u!1 &358939779
 GameObject:
@@ -1323,6 +1286,7 @@ MonoBehaviour:
   prefab: {fileID: 5387323640947031580, guid: 68da16978d94c284cb158ce16bc05b4e, type: 3}
   numberOfEnemies: 10
   positionTransform: {fileID: 1162771558}
+  radius: 0
   units: []
 --- !u!1 &391039704
 GameObject:
@@ -1387,6 +1351,7 @@ MonoBehaviour:
   prefab: {fileID: 2229540396315634032, guid: d9d2b1e594edb084ea60482b81b239a2, type: 3}
   numberOfEnemies: 10
   positionTransform: {fileID: 239269833}
+  radius: 0
   units: []
 --- !u!1 &392291242
 GameObject:
@@ -1437,6 +1402,7 @@ MonoBehaviour:
   prefab: {fileID: 8817983481161146911, guid: 5ca565c34609e8649b21dc9c12af5950, type: 3}
   numberOfEnemies: 10
   positionTransform: {fileID: 733737019}
+  radius: 0
   units: []
 --- !u!114 &392291245
 MonoBehaviour:
@@ -1515,6 +1481,7 @@ MonoBehaviour:
   prefab: {fileID: 8817983481161146911, guid: 5ca565c34609e8649b21dc9c12af5950, type: 3}
   numberOfEnemies: 10
   positionTransform: {fileID: 733737019}
+  radius: 0
   units: []
 --- !u!1 &439188135
 GameObject:
@@ -1579,6 +1546,7 @@ MonoBehaviour:
   prefab: {fileID: 6527355763322751690, guid: 1ca2ff29bae5449c79355c92a4cf2b44, type: 3}
   numberOfEnemies: 1
   positionTransform: {fileID: 133571328}
+  radius: 0
   units: []
 --- !u!1 &444427373
 GameObject:
@@ -1614,6 +1582,7 @@ MonoBehaviour:
   prefab: {fileID: 8817983481161146911, guid: 5ca565c34609e8649b21dc9c12af5950, type: 3}
   numberOfEnemies: 10
   positionTransform: {fileID: 733737019}
+  radius: 0
   units: []
 --- !u!4 &444427375
 Transform:
@@ -1707,6 +1676,7 @@ MonoBehaviour:
   prefab: {fileID: 6527355763322751690, guid: 1ca2ff29bae5449c79355c92a4cf2b44, type: 3}
   numberOfEnemies: 1
   positionTransform: {fileID: 133571328}
+  radius: 0
   units: []
 --- !u!1001 &658178109
 PrefabInstance:
@@ -1848,6 +1818,7 @@ MonoBehaviour:
   prefab: {fileID: 5387323640947031580, guid: 68da16978d94c284cb158ce16bc05b4e, type: 3}
   numberOfEnemies: 10
   positionTransform: {fileID: 1162771558}
+  radius: 0
   units: []
 --- !u!1 &731943644
 GameObject:
@@ -1956,7 +1927,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 733737019}
-  - component: {fileID: 733737020}
   - component: {fileID: 733737021}
   m_Layer: 0
   m_Name: ==== ENEMIES =====
@@ -1987,27 +1957,6 @@ Transform:
   m_Father: {fileID: 1555305042}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &733737020
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 733737018}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b41127c472c2214ea0eb0230bff2ed8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ringArrays:
-  - {fileID: 444427375}
-  - {fileID: 392291243}
-  - {fileID: 1579533840}
-  - {fileID: 420145517}
-  - {fileID: 1973970763}
-  - {fileID: 155564637}
-  - {fileID: 1069992857}
-  debugText: {fileID: 1179128468}
 --- !u!114 &733737021
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2020,7 +1969,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57ff9a2c6b712114ca4adafa854a6707, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyRings: []
   radius: 5
   fireDelay: 3
 --- !u!1 &791778365
@@ -2086,6 +2034,7 @@ MonoBehaviour:
   prefab: {fileID: 6527355763322751690, guid: 1ca2ff29bae5449c79355c92a4cf2b44, type: 3}
   numberOfEnemies: 1
   positionTransform: {fileID: 133571328}
+  radius: 0
   units: []
 --- !u!1 &832575517
 GameObject:
@@ -2263,6 +2212,7 @@ MonoBehaviour:
   prefab: {fileID: 6527355763322751690, guid: 1ca2ff29bae5449c79355c92a4cf2b44, type: 3}
   numberOfEnemies: 1
   positionTransform: {fileID: 133571328}
+  radius: 0
   units: []
 --- !u!1 &891838278
 GameObject:
@@ -2273,7 +2223,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 891838279}
-  - component: {fileID: 891838281}
+  - component: {fileID: 891838282}
   m_Layer: 0
   m_Name: DefenceArray
   m_TagString: Untagged
@@ -2296,7 +2246,7 @@ Transform:
   m_Father: {fileID: 1114988454}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &891838281
+--- !u!114 &891838282
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2305,13 +2255,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 891838278}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 675fc37fd1aa042f78016c9717fd5cdd, type: 3}
+  m_Script: {fileID: 11500000, guid: 50d6cb200eb1b894a9b0265524f7dbbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ringID: 0
   prefab: {fileID: 5363047736125058874, guid: 0ed6fedf167c7b045b2f143dca2f002b, type: 3}
   numberOfEnemies: 8
   positionTransform: {fileID: 891838279}
+  radius: 0
   units: []
 --- !u!1 &933755405
 GameObject:
@@ -2662,13 +2613,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 945712329}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 675fc37fd1aa042f78016c9717fd5cdd, type: 3}
+  m_Script: {fileID: 11500000, guid: 50d6cb200eb1b894a9b0265524f7dbbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ringID: 3
   prefab: {fileID: 5363047736125058874, guid: 0ed6fedf167c7b045b2f143dca2f002b, type: 3}
   numberOfEnemies: 8
-  positionTransform: {fileID: 945712330}
+  positionTransform: {fileID: 891838279}
+  radius: 0
   units: []
 --- !u!1 &970823765
 GameObject:
@@ -2848,6 +2800,7 @@ MonoBehaviour:
   prefab: {fileID: 8817983481161146911, guid: 5ca565c34609e8649b21dc9c12af5950, type: 3}
   numberOfEnemies: 10
   positionTransform: {fileID: 733737019}
+  radius: 0
   units: []
 --- !u!1 &1086626208
 GameObject:
@@ -2858,7 +2811,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1086626209}
-  - component: {fileID: 1086626211}
+  - component: {fileID: 1086626212}
   m_Layer: 0
   m_Name: DefenceArray (1)
   m_TagString: Untagged
@@ -2881,7 +2834,7 @@ Transform:
   m_Father: {fileID: 1114988454}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1086626211
+--- !u!114 &1086626212
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2890,13 +2843,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1086626208}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 675fc37fd1aa042f78016c9717fd5cdd, type: 3}
+  m_Script: {fileID: 11500000, guid: 50d6cb200eb1b894a9b0265524f7dbbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ringID: 1
   prefab: {fileID: 5363047736125058874, guid: 0ed6fedf167c7b045b2f143dca2f002b, type: 3}
   numberOfEnemies: 8
-  positionTransform: {fileID: 1086626209}
+  positionTransform: {fileID: 891838279}
+  radius: 0
   units: []
 --- !u!1 &1114988453
 GameObject:
@@ -2907,10 +2861,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1114988454}
-  - component: {fileID: 1114988455}
   - component: {fileID: 1114988456}
   m_Layer: 0
-  m_Name: ==== DEFENCES ====
+  m_Name: ==== DEFENCE ARRAYS ====
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2938,27 +2891,6 @@ Transform:
   m_Father: {fileID: 1555305042}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1114988455
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1114988453}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b41127c472c2214ea0eb0230bff2ed8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ringArrays:
-  - {fileID: 891838279}
-  - {fileID: 1086626209}
-  - {fileID: 1205067377}
-  - {fileID: 945712330}
-  - {fileID: 150010170}
-  - {fileID: 1576062427}
-  - {fileID: 299071466}
-  debugText: {fileID: 1818453479}
 --- !u!114 &1114988456
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2971,7 +2903,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57ff9a2c6b712114ca4adafa854a6707, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyRings: []
   radius: 4
   fireDelay: 1
 --- !u!1 &1162771557
@@ -2983,7 +2914,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1162771558}
-  - component: {fileID: 1162771560}
   - component: {fileID: 1162771559}
   m_Layer: 0
   m_Name: ==== ENEMIES ===== (1)
@@ -3026,30 +2956,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57ff9a2c6b712114ca4adafa854a6707, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyRings: []
   radius: 6
   fireDelay: 1
---- !u!114 &1162771560
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1162771557}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b41127c472c2214ea0eb0230bff2ed8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ringArrays:
-  - {fileID: 358939780}
-  - {fileID: 344150694}
-  - {fileID: 1998662785}
-  - {fileID: 188446755}
-  - {fileID: 674572925}
-  - {fileID: 307110369}
-  - {fileID: 352125815}
-  debugText: {fileID: 1179128468}
 --- !u!1 &1179128467
 GameObject:
   m_ObjectHideFlags: 0
@@ -3263,13 +3171,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1205067376}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 675fc37fd1aa042f78016c9717fd5cdd, type: 3}
+  m_Script: {fileID: 11500000, guid: 50d6cb200eb1b894a9b0265524f7dbbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ringID: 2
   prefab: {fileID: 5363047736125058874, guid: 0ed6fedf167c7b045b2f143dca2f002b, type: 3}
   numberOfEnemies: 8
-  positionTransform: {fileID: 1205067377}
+  positionTransform: {fileID: 891838279}
+  radius: 0
   units: []
 --- !u!1 &1210166606
 GameObject:
@@ -3334,6 +3243,7 @@ MonoBehaviour:
   prefab: {fileID: 2229540396315634032, guid: d9d2b1e594edb084ea60482b81b239a2, type: 3}
   numberOfEnemies: 10
   positionTransform: {fileID: 239269833}
+  radius: 0
   units: []
 --- !u!1 &1246819875
 GameObject:
@@ -3563,6 +3473,7 @@ MonoBehaviour:
   prefab: {fileID: 2229540396315634032, guid: d9d2b1e594edb084ea60482b81b239a2, type: 3}
   numberOfEnemies: 10
   positionTransform: {fileID: 239269833}
+  radius: 0
   units: []
 --- !u!1 &1400067387
 GameObject:
@@ -3627,6 +3538,7 @@ MonoBehaviour:
   prefab: {fileID: 2229540396315634032, guid: d9d2b1e594edb084ea60482b81b239a2, type: 3}
   numberOfEnemies: 10
   positionTransform: {fileID: 239269833}
+  radius: 0
   units: []
 --- !u!1 &1555305038
 GameObject:
@@ -3743,11 +3655,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57ff9a2c6b712114ca4adafa854a6707, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyRings:
-  - {fileID: 444427374}
-  - {fileID: 392291244}
-  - {fileID: 1579533842}
-  - {fileID: 420145519}
   radius: 0
   fireDelay: 1
 --- !u!1 &1559238111
@@ -3813,6 +3720,7 @@ MonoBehaviour:
   prefab: {fileID: 2229540396315634032, guid: d9d2b1e594edb084ea60482b81b239a2, type: 3}
   numberOfEnemies: 10
   positionTransform: {fileID: 239269833}
+  radius: 0
   units: []
 --- !u!1 &1576062426
 GameObject:
@@ -3855,13 +3763,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1576062426}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 675fc37fd1aa042f78016c9717fd5cdd, type: 3}
+  m_Script: {fileID: 11500000, guid: 50d6cb200eb1b894a9b0265524f7dbbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ringID: 5
   prefab: {fileID: 5363047736125058874, guid: 0ed6fedf167c7b045b2f143dca2f002b, type: 3}
   numberOfEnemies: 8
-  positionTransform: {fileID: 1576062427}
+  positionTransform: {fileID: 891838279}
+  radius: 0
   units: []
 --- !u!1 &1579533839
 GameObject:
@@ -3926,6 +3835,7 @@ MonoBehaviour:
   prefab: {fileID: 8817983481161146911, guid: 5ca565c34609e8649b21dc9c12af5950, type: 3}
   numberOfEnemies: 10
   positionTransform: {fileID: 733737019}
+  radius: 0
   units: []
 --- !u!1 &1591576245
 GameObject:
@@ -3990,6 +3900,7 @@ MonoBehaviour:
   prefab: {fileID: 2229540396315634032, guid: d9d2b1e594edb084ea60482b81b239a2, type: 3}
   numberOfEnemies: 10
   positionTransform: {fileID: 239269833}
+  radius: 0
   units: []
 --- !u!1 &1701947098
 GameObject:
@@ -4226,6 +4137,7 @@ MonoBehaviour:
   prefab: {fileID: 6527355763322751690, guid: 1ca2ff29bae5449c79355c92a4cf2b44, type: 3}
   numberOfEnemies: 1
   positionTransform: {fileID: 133571328}
+  radius: 0
   units: []
 --- !u!1 &1773882244
 GameObject:
@@ -4564,6 +4476,7 @@ MonoBehaviour:
   prefab: {fileID: 6527355763322751690, guid: 1ca2ff29bae5449c79355c92a4cf2b44, type: 3}
   numberOfEnemies: 1
   positionTransform: {fileID: 133571328}
+  radius: 0
   units: []
 --- !u!1 &1973970762
 GameObject:
@@ -4628,6 +4541,7 @@ MonoBehaviour:
   prefab: {fileID: 8817983481161146911, guid: 5ca565c34609e8649b21dc9c12af5950, type: 3}
   numberOfEnemies: 10
   positionTransform: {fileID: 733737019}
+  radius: 0
   units: []
 --- !u!1 &1998662784
 GameObject:
@@ -4692,6 +4606,7 @@ MonoBehaviour:
   prefab: {fileID: 5387323640947031580, guid: 68da16978d94c284cb158ce16bc05b4e, type: 3}
   numberOfEnemies: 10
   positionTransform: {fileID: 1162771558}
+  radius: 0
   units: []
 --- !u!1 &2007628982
 GameObject:

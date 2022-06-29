@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class RingArray : MonoBehaviour
+public class BaseRingArray : MonoBehaviour
 {
 
     public enum Ring
@@ -21,12 +21,12 @@ public class RingArray : MonoBehaviour
     public Ring ringID;
 
     //public TMP_Text debugText;
-
+    [Header("Invaders & Defences Prefabs")]
     public GameObject prefab;
     [Range(0, 10)]
     public int numberOfEnemies;
     public Transform positionTransform;
-    private float radius;
+    public float radius;
     //public float rotation;
 
     public List<GameObject> units;
@@ -49,20 +49,23 @@ public class RingArray : MonoBehaviour
     private int angleInt;
 
     // Start is called before the first frame update
-    void Start()
+    public void Start()
     {
         ArrayManager arrayManager = transform.GetComponentInParent<ArrayManager>();
         if (arrayManager == null) print("ERROR; no enemy manager");
         fireDelay = arrayManager.GetFireDelay();
         radius = arrayManager.radius;
         units = new List<GameObject>();
+
+        // Prefab != null FOR Invaders. As defences have multiple prefabs, prefab is defined elsewhere
+        if(prefab != null)
         CreateEnemiesAroundPoint(numberOfEnemies, positionTransform.position, radius);
 
         fireTimer = Time.time + fireDelay;
     }
 
     // Update is called once per frame
-    void Update()
+    public void Update()
     {
         SpaceEnemies();
         HandleFiring();
@@ -74,7 +77,7 @@ public class RingArray : MonoBehaviour
         return angleInt;
     }
 
-    private void HandleTransparency()
+    public void HandleTransparency()
     {
         //float angle;
         //Vector3 axis = Vector3.zero;
@@ -158,10 +161,10 @@ public class RingArray : MonoBehaviour
         }
 
     }
-    public void RemoveEnemy(GameObject unit)
+    public void RemoveUnit(GameObject unit)
     {
         // Removes enemy from the list
-        print("Unit array length before " + units.Count);
+        print(transform.name+ "BaseRingArray length before " + units.Count);
         if (units.Count > 0)
         {
             units.Remove(unit);
@@ -171,7 +174,7 @@ public class RingArray : MonoBehaviour
         {
             if (units[i] == null) units.RemoveAt(i);
         }
-        print("Unit array length after " + units.Count);
+        print(transform.name + "BaseRingArray length AFTER " + units.Count);
     }
     public void CreateEnemiesAroundPoint(int num, Vector3 point, float radius)
     {
