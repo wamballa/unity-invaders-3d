@@ -107,12 +107,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b52a7ea5e71dda14da03ae37bf82a4e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  explosionVFX: {fileID: 6899414717631399991, guid: ea2b6b0b4f3114f7cb59d75e81f07da7,
+    type: 3}
   solid: {fileID: 8356300349338362698}
   trans: {fileID: 8833282017956310915}
   newSolids:
-  - {fileID: -5754084199372789682, guid: eb494e8bd7cc447c5a61cdc3aeee8ad6, type: 3}
+  - {fileID: -5754084199372789682, guid: d3ee2deb26ca64300959ba3873910fe3, type: 3}
+  - {fileID: -5754084199372789682, guid: 74494a53e51ef4c1b8e44630aaa72135, type: 3}
+  - {fileID: -5754084199372789682, guid: 853426c1bf18542898d185b7633fd122, type: 3}
   newTrans:
-  - {fileID: -5754084199372789682, guid: eb494e8bd7cc447c5a61cdc3aeee8ad6, type: 3}
+  - {fileID: -5754084199372789682, guid: d3ee2deb26ca64300959ba3873910fe3, type: 3}
+  - {fileID: -5754084199372789682, guid: 74494a53e51ef4c1b8e44630aaa72135, type: 3}
+  - {fileID: -5754084199372789682, guid: 853426c1bf18542898d185b7633fd122, type: 3}
 --- !u!1 &7405783460993885979
 GameObject:
   m_ObjectHideFlags: 0

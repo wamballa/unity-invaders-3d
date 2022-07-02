@@ -12,16 +12,18 @@ public class IAmInTheWay : MonoBehaviour
     // Start is called before the first frame update
     public void ShowTransparent()
     {
+        isSolid = false;
         solidBody.SetActive(false);
         transBody.SetActive(true);
-        isSolid = false;
+
     }
 
     public void ShowSolid()
     {
+        isSolid = true;
         solidBody.SetActive(true);
         transBody.SetActive(false);
-        isSolid = true;
+
     }
 
     public bool GetIsSolid()

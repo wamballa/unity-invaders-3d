@@ -8,8 +8,7 @@ TagManager:
   - Planet
   - Defence
   - Invader
-  - Enemy2
-  - Enemy1
+  - EnemyBullet
   layers:
   - Default
   - TransparentFX
@@ -17,7 +16,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - FX
   - 
   - 
   - 

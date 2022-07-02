@@ -147,7 +147,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: faa28f96299fb564ab79327b089335a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireSFX: {fileID: 8300000, guid: cf3a3918069ed07469114ee0009ec97b, type: 3}
+  explosionVFX: {fileID: 6899414717631399991, guid: ea2b6b0b4f3114f7cb59d75e81f07da7,
+    type: 3}
+  explosionSFX: {fileID: 8300000, guid: cf3a3918069ed07469114ee0009ec97b, type: 3}
   bulletPF: {fileID: 6352473218525723982, guid: 3b5d299db6729df4f954df6cb1bf8bd3,
     type: 3}
   bulletSpawnPoint: {fileID: 130962725666191842}

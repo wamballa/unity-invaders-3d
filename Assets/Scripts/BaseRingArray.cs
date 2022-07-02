@@ -23,10 +23,10 @@ public class BaseRingArray : MonoBehaviour
     //public TMP_Text debugText;
     [Header("Invaders & Defences Prefabs")]
     public GameObject prefab;
-    [Range(0, 10)]
+    [Range(0, 50)]
     public int numberOfEnemies;
     public Transform positionTransform;
-    public float radius;
+    float radius;
     //public float rotation;
 
     public List<GameObject> units;
@@ -164,7 +164,7 @@ public class BaseRingArray : MonoBehaviour
     public void RemoveUnit(GameObject unit)
     {
         // Removes enemy from the list
-        print(transform.name+ "BaseRingArray length before " + units.Count);
+        //print(transform.name+ "BaseRingArray length before " + units.Count);
         if (units.Count > 0)
         {
             units.Remove(unit);
@@ -174,7 +174,7 @@ public class BaseRingArray : MonoBehaviour
         {
             if (units[i] == null) units.RemoveAt(i);
         }
-        print(transform.name + "BaseRingArray length AFTER " + units.Count);
+        //print(transform.name + "BaseRingArray length AFTER " + units.Count);
     }
     public void CreateEnemiesAroundPoint(int num, Vector3 point, float radius)
     {

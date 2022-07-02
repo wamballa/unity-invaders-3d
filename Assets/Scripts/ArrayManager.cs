@@ -12,16 +12,17 @@ public class ArrayManager : MonoBehaviour
     [Header("INVADER ONLY = Firing delay")]
     public float fireDelay = 1;
 
-    //[Header("DEFENCE ONLY = defence states")]
-    //public GameObject defenceState1;
-    //public GameObject defenceState2;
-    //public GameObject defenceState3;
-    //public GameObject defenceState4;
-
+    [Header("INVADER ONLY = Direction")]
+    public int invaderDirection;
 
     public float GetFireDelay()
     {
         return fireDelay;
+    }
+
+    public int GetInvaderDirection()
+    {
+        return invaderDirection;
     }
 
     //public GameObject GetDefencePrefab(int n)

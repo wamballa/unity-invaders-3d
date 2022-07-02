@@ -6,28 +6,31 @@ public class PlayerController : MonoBehaviour
 {
 
     public Transform planet;
-    public Transform bulletSpawnPoint;
-    public GameObject bulletPF;
+
 
     private float cameraRotation = 45;
     private float rotationSpeed = 0.75f;
-
     private float currentAngle;
-
-    //private bool hasRotated = false;
     bool canRotate = false;
     int rotationDirection;
-
-    Vector3 byAngle;
-    Quaternion fromAngle;
-    Quaternion toAngle;
-
     float targetRotation;
+
+    // FIRE
+    float fireTimer;
+    [Header("Firing stuff")]
+    public float fireDelay = 1;
+    public Transform bulletSpawnPoint;
+    public GameObject bulletPF;
+    public AudioClip fireSFX;
+    [Header("Rotation whoosh")]
+    [SerializeField] private AudioClip rotationSFX;
+
+    AudioSource audioSource;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        audioSource = transform.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -92,6 +95,7 @@ public class PlayerController : MonoBehaviour
             //StartCoroutine(RotateMe(Vector3.up * cameraRotation, 1));
             if (!canRotate)
             {
+                audioSource.PlayOneShot(rotationSFX);
                 targetRotation -= cameraRotation;
                 rotationDirection = -1;
                 canRotate = true;
@@ -101,6 +105,7 @@ public class PlayerController : MonoBehaviour
         {
             if (!canRotate)
             {
+                audioSource.PlayOneShot(rotationSFX);
                 targetRotation += cameraRotation;
                 rotationDirection = 1;
                 canRotate = true;
@@ -114,7 +119,15 @@ public class PlayerController : MonoBehaviour
 
     void Fire()
     {
-        GameObject bullet = Instantiate(bulletPF, bulletSpawnPoint.position, transform.rotation);
+        if (Time.time > fireTimer)
+        {
+            audioSource.PlayOneShot(fireSFX);
+            GameObject bullet = Instantiate(bulletPF,
+                bulletSpawnPoint.position,
+                transform.rotation);
+            fireTimer = Time.time + fireDelay;
+        }
+
     }
 
 }

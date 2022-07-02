@@ -13,21 +13,29 @@ public class RIngMove : MonoBehaviour
 
     bool canRotate = true;
 
-    private int rotationDirection;
+    private int rotationDirection = 1;
 
     // Start is called before the first frame update
     void Start()
     {
 
-        rotationDirection = (Random.Range(0, 10) > 5) ? 1 : -1;
+        rotationDirection = transform.GetComponentInParent<ArrayManager>().GetInvaderDirection();
 
         timer1 = Time.time + rotateDuration;
     }
 
     void FixedUpdate()
     {
+        if (canRotate && pauseDelay == 0)
+        {
+            transform.RotateAround(
+                transform.position,
+                transform.forward * rotationDirection,
+                0.5f);
 
-        if (canRotate)
+        }
+
+        if (canRotate && pauseDelay != 0)
         {
             if (Time.time > timer1)
             {

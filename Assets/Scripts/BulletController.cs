@@ -29,19 +29,28 @@ public class BulletController : MonoBehaviour
     }
 
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.transform.CompareTag("Invader"))
-        {
-            print("Hit Invader");
-            other.GetComponentInParent<BaseRingArray>().RemoveUnit(other.gameObject);
-            Destroy(other.gameObject);
-            Destroy(gameObject);
-        }
-        //if (other.transform.CompareTag("Defence"))
-        //{
-        //    print("Hit Defence");
-        //    Destroy(gameObject);
-        //}
-    }
+
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.transform.CompareTag("Invader"))
+    //    {
+
+    //        bool isSolid = other.transform
+    //            .GetComponent<IAmInTheWay>()
+    //            .GetIsSolid();
+    //        if (isSolid)
+    //        {
+    //            print("Hit Invader");
+    //            other.GetComponentInParent<BaseRingArray>().RemoveUnit(other.gameObject);
+    //            Destroy(other.gameObject);
+    //            Destroy(gameObject);
+    //        }
+
+    //    }
+    //if (other.transform.CompareTag("Defence"))
+    //{
+    //    print("Hit Defence");
+    //    Destroy(gameObject);
+    //}
+    //}
 }

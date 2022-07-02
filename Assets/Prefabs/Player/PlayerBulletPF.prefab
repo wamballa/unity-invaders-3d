@@ -93,9 +93,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2725653145378480724}
   - component: {fileID: -5070876254766470912}
-  - component: {fileID: 1388045328059774245}
-  - component: {fileID: 5191242601256620867}
   - component: {fileID: 1623312672494708825}
+  - component: {fileID: 1388045328059774245}
   m_Layer: 0
   m_Name: PlayerBulletPF
   m_TagString: Bullet
@@ -135,31 +134,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &1388045328059774245
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5836918322522696200}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 544c9a013350c4beb8bd2eae88b064c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &5191242601256620867
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5836918322522696200}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c87aa165a7074a45bc57585edc53dde, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ringArray: {fileID: 0}
 --- !u!65 &1623312672494708825
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -173,3 +147,15 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.09, y: 0.09, z: 0.5}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1388045328059774245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5836918322522696200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 544c9a013350c4beb8bd2eae88b064c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

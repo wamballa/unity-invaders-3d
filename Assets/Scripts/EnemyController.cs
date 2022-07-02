@@ -7,17 +7,21 @@ public class EnemyController : EnemyBase
     [SerializeField] private GameObject bulletPF;
     [SerializeField] private Transform bulletSpawnPoint;
 
+    private GameManager gameManager;
+
     IAmInTheWay inTheWay;
     bool isDead = false;
 
-    AudioSource audioSource;
+    //AudioSource audioSource;
 
     // Start is called before the first frame update
     void Start()
     {
+        base.Start();
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         inTheWay = transform.GetComponent<IAmInTheWay>();
         if (inTheWay == null) print("ERROR: enemy has no IAmInTheWay");
-        audioSource = transform.GetComponent<AudioSource>();
+        
     }
 
     // Update is called once per frame
@@ -27,7 +31,6 @@ public class EnemyController : EnemyBase
 
     public void HandleFiring()
     {
-        audioSource.PlayOneShot(fireSFX);
         Instantiate(bulletPF, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
     }
 
@@ -35,13 +38,16 @@ public class EnemyController : EnemyBase
     {
         if (other.CompareTag("Bullet") && !isDead)
         {
-            isDead = true;
-            Destroy(other.gameObject);
             if (inTheWay.GetIsSolid())
             {
+                gameManager.SetScore();
+                isDead = true;
+                Destroy(other.gameObject);
+                // Explode
+                ExplodeMe();
                 // ADD SCORE TO PLAYER
-                transform.GetComponentInParent<BaseRingArray>().RemoveUnit(
-    gameObject);
+                transform.GetComponentInParent<BaseRingArray>()
+                    .RemoveUnit(gameObject);
                 Destroy(gameObject);
             }
         }

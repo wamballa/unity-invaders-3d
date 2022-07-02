@@ -12,6 +12,9 @@ public class DefenceController : MonoBehaviour
     IAmInTheWay inTheWay;
     ArrayManager arrayManager;
 
+    [Header("Explosion")]
+    [SerializeField] private GameObject explosionVFX;
+
     [Header("Meshes to replace")]
     [SerializeField] private MeshFilter solid;
     [SerializeField] private MeshFilter trans;
@@ -26,15 +29,10 @@ public class DefenceController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     { 
-
         health = maxHealth;
         inTheWay = GetComponent<IAmInTheWay>();
         if (inTheWay == null) print("ERROR: IAmInTheWay missing");
         arrayManager = transform.parent.GetComponentInParent<ArrayManager>();
-
-
-
-
     }
 
     // Update is called once per frame
@@ -48,54 +46,58 @@ public class DefenceController : MonoBehaviour
         if (canSpawnNext)
         switch (health)
         {
-            case 8:
-                //arrayManager.GetDefencePrefab(1);
-                    break;
             case 6:
-                print("Health is 6 "+transform.name);
-                canSpawnNext = false;
-
+                    ExplodeMe();
+                    canSpawnNext = false;
                     solid.sharedMesh = newSolids[0].sharedMesh;
                     trans.sharedMesh = newTrans[0].sharedMesh;
+                    break;
+            case 4:
+                    ExplodeMe();
+                    canSpawnNext = false;
+                    solid.sharedMesh = newSolids[1].sharedMesh;
+                    trans.sharedMesh = newTrans[1].sharedMesh;
 
 
                     break;
-            case 4:
-                break;
             case 2:
-                break;
+                    ExplodeMe();
+                    canSpawnNext = false;
+                    solid.sharedMesh = newSolids[2].sharedMesh;
+                    trans.sharedMesh = newTrans[2].sharedMesh;
+                    break;
             case 0:
-                isDead = true;
-                // delete defence from ring array
-                transform.GetComponentInParent<BaseRingArray>().RemoveUnit(
-                    gameObject);
-                //// delete defence
-                Destroy(gameObject);
-                break;
+                    ExplodeMe();
+                    isDead = true;
+                    // delete defence from ring array
+                    transform.GetComponentInParent<BaseRingArray>().RemoveUnit(
+                        gameObject);
+                    //// delete defence
+                    Destroy(gameObject);
+                    break;
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Bullet")
-            && !isDead
-            && inTheWay.GetIsSolid())
+            || other.CompareTag("EnemyBullet"))
         {
-            Destroy(other.gameObject);
-            health--;
-            canSpawnNext = true;
-            //print("Name / health " + gameObject.name + " / " + health);
-            //if (health == 0)
-            //{
-            //    isDead = true;
-            //    // delete defence from ring array
-            //    transform.GetComponentInParent<BaseRingArray>().RemoveUnit(
-            //        gameObject);
-            //    //// delete defence
-            //    Destroy(gameObject);
+            if (!isDead
+            && inTheWay.GetIsSolid())
+            {
+                Destroy(other.gameObject);
+                health--;
+                canSpawnNext = true;
+            }
 
 
-            //}
         }
+    }
+
+    private void ExplodeMe()
+    {
+        GameObject exp = Instantiate(explosionVFX, transform.position, Quaternion.identity);
+        Destroy(exp, 1);
     }
 }
