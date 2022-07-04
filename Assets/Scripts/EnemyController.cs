@@ -27,11 +27,20 @@ public class EnemyController : EnemyBase
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            HandleFiring();
+        }
     }
 
     public void HandleFiring()
     {
-        Instantiate(bulletPF, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
+        //Instantiate(bulletPF, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
+        GameObject bullet =  Instantiate(
+            bulletPF, 
+            bulletSpawnPoint.position, 
+            transform.rotation);
+        bullet.transform.LookAt(Vector3.zero);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -40,6 +49,7 @@ public class EnemyController : EnemyBase
         {
             if (inTheWay.GetIsSolid())
             {
+                //print("Impact");
                 gameManager.SetScore();
                 isDead = true;
                 Destroy(other.gameObject);

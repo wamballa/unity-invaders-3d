@@ -5,7 +5,8 @@ using UnityEngine;
 public class EnemyBullet : MonoBehaviour
 {
     Rigidbody rb;
-    float speed = 3f;
+    [SerializeField] public float speed = .1f;
+    [SerializeField] private GameObject explosion;
 
     // Start is called before the first frame update
     void Start()
@@ -34,10 +35,13 @@ public class EnemyBullet : MonoBehaviour
         //}
         if (other.transform.CompareTag("Planet"))
         {
+            //print(">>> " + transform.name + " " + other.name);
             GameManager gm = GameObject.Find("GameManager").GetComponent<GameManager>();
-            gm.PlanetHealth--;
+            gm.HandlePlanetHealth();
+            Instantiate(explosion, transform.position, transform.rotation);
+            Destroy(gameObject);
         }
-        Destroy(gameObject);
+
     }
 
 }

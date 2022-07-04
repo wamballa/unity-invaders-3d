@@ -18,12 +18,13 @@ public class PlayerController : MonoBehaviour
     // FIRE
     float fireTimer;
     [Header("Firing stuff")]
-    public float fireDelay = 1;
+    public float fireDelay = .5f;
     public Transform bulletSpawnPoint;
     public GameObject bulletPF;
     public AudioClip fireSFX;
     [Header("Rotation whoosh")]
     [SerializeField] private AudioClip rotationSFX;
+    [SerializeField] private float speed;
 
     AudioSource audioSource;
 
@@ -81,13 +82,13 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftArrow))
         {
 
-            transform.RotateAround(planet.position, Vector3.forward, 1);
+            transform.RotateAround(planet.position, Vector3.forward, 1 * speed);
 
         }
 
         if (Input.GetKey(KeyCode.RightArrow))
         {
-            transform.RotateAround(planet.position, Vector3.forward, -1);
+            transform.RotateAround(planet.position, Vector3.forward, -1*speed);
         }
 
         if (Input.GetKeyUp(KeyCode.A))
@@ -111,7 +112,8 @@ public class PlayerController : MonoBehaviour
                 canRotate = true;
             }
         }
-        if (Input.GetKeyDown(KeyCode.Space))
+        //if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space))
         {
             Fire();
         }
@@ -128,6 +130,14 @@ public class PlayerController : MonoBehaviour
             fireTimer = Time.time + fireDelay;
         }
 
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("EnemyBullet"))
+        {
+            print("Player hit by bullet");
+        }
     }
 
 }

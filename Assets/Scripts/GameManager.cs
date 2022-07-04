@@ -21,6 +21,15 @@ public class GameManager : MonoBehaviour
     bool isMotherVisible = false;
     [SerializeField] private GameObject mothershipPF;
 
+    [SerializeField] private GameObject vhsPF;
+
+    [Header("Planet")]
+    [SerializeField] MeshRenderer planetMesh;
+    [SerializeField] private TMP_Text healthText;
+
+    Color planetColour;
+    Material planetMaterial;
+
     private int planetHealth;
     public int PlanetHealth
     {
@@ -30,13 +39,20 @@ public class GameManager : MonoBehaviour
 
     private int score;
 
+    private void Awake()
+    {
+        vhsPF.SetActive(true);
+    }
 
     // Start is called before the first frame update
     void Start()
     {
         planetHealth = 5;
         score = 0;
-        //audioSource = transform.GetComponent<AudioSource>();
+        Material[] m = planetMesh.materials;
+        planetMaterial = m[0];
+        planetColour = new Color(0, 1, 0);
+
     }
 
     // Update is called once per frame
@@ -49,6 +65,37 @@ public class GameManager : MonoBehaviour
         HandleAudio();
         HandleMothership();
         HandleScoreText();
+
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            planetColour.g = planetColour.g - 0.1f;
+            planetMaterial.color = planetColour;
+            print("green color = " + planetColour.g);
+            print("red color = " + planetColour.r);
+            print("blue color = " + planetColour.b);
+        }
+    }
+
+    public void HandlePlanetHealth()
+    {
+
+        //planetHealth--;
+        planetColour.g = planetColour.g - 0.01f;
+        if (planetColour.g <= 0)
+        {
+            print("EXPLODE PLANET");
+            return;
+        }
+        planetMaterial.color = planetColour;
+
+        // update text
+        float health = Mathf.Round(planetColour.g * 100f);
+        healthText.text = health.ToString()+"%";
+
+        print("green color = " + planetColour.g);
+        print("red color = " + planetColour.r);
+        print("blue color = " + planetColour.b);
+
     }
 
     void HandleScoreText()

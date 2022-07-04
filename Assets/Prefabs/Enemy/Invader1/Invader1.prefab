@@ -191,8 +191,7 @@ MonoBehaviour:
   explosionVFX: {fileID: 6899414717631399991, guid: ea2b6b0b4f3114f7cb59d75e81f07da7,
     type: 3}
   explosionSFX: {fileID: 8300000, guid: cf3a3918069ed07469114ee0009ec97b, type: 3}
-  audioSource: {fileID: 0}
-  bulletPF: {fileID: 6352473218525723982, guid: 3b5d299db6729df4f954df6cb1bf8bd3,
+  bulletPF: {fileID: 2705680459396247074, guid: 0e52066cb1f75294a9d401055c86b89b,
     type: 3}
   bulletSpawnPoint: {fileID: 8817983481563924135}
 --- !u!65 &6197408422037000243
@@ -536,6 +535,11 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: af376837500647e4faa4b60b8636e181,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ca86ed93898ad4af4a562150c36bff9b, type: 2}
     - target: {fileID: 919132149155446097, guid: af376837500647e4faa4b60b8636e181,
         type: 3}
       propertyPath: m_Name
@@ -638,6 +642,11 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 9f82631982d53bd48bcd489ec8e3953f,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ca86ed93898ad4af4a562150c36bff9b, type: 2}
     - target: {fileID: 919132149155446097, guid: 9f82631982d53bd48bcd489ec8e3953f,
         type: 3}
       propertyPath: m_Name
