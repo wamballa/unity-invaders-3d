@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -27,6 +28,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] MeshRenderer planetMesh;
     [SerializeField] private TMP_Text healthText;
 
+    [Header("Player = so can disable while exploding")]
+    [SerializeField] private PlayerController playerController;
+
     Color planetColour;
     Material planetMaterial;
 
@@ -38,6 +42,16 @@ public class GameManager : MonoBehaviour
     }
 
     private int score;
+
+    [Header("Explosion Spawn Points")]
+    [SerializeField] GameObject[] explosionSpawnPoints;
+    [SerializeField] GameObject explosionPF;
+    private bool isPlanetDead = false;
+    private int maxExplosions = 10;
+    private int explosionCounter = 0;
+    private float explosionTimer;
+    private float explosionDelay = 0.5f;
+
 
     private void Awake()
     {
@@ -65,26 +79,55 @@ public class GameManager : MonoBehaviour
         HandleAudio();
         HandleMothership();
         HandleScoreText();
+        HandlePlanetExplode();
 
         if (Input.GetKeyDown(KeyCode.C))
         {
-            planetColour.g = planetColour.g - 0.1f;
-            planetMaterial.color = planetColour;
-            print("green color = " + planetColour.g);
-            print("red color = " + planetColour.r);
-            print("blue color = " + planetColour.b);
+            isPlanetDead = true;
         }
+    }
+
+    private void HandlePlanetExplode()
+    {
+        if (isPlanetDead)
+        {
+            // kill player
+            playerController.PlayerIsDead();
+
+            if (Time.time > explosionTimer)
+            {
+                if (explosionCounter <= maxExplosions)
+                {
+                    explosionCounter++;
+                    explosionTimer = Time.time + explosionDelay;
+                    foreach(GameObject explosion in explosionSpawnPoints)
+                    {
+                        GameObject go = Instantiate(explosionPF, explosion.transform.position, Quaternion.identity);
+                        Destroy(go, 2f);
+                    }
+                }
+                else
+                {
+                    StartCoroutine(GameOver());
+                }
+            }
+        }
+    }
+
+    IEnumerator GameOver()
+    {
+        yield return new WaitForSeconds(2);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     public void HandlePlanetHealth()
     {
-
+        if (isPlanetDead) return;
         //planetHealth--;
         planetColour.g = planetColour.g - 0.01f;
         if (planetColour.g <= 0)
         {
-            print("EXPLODE PLANET");
-            return;
+            isPlanetDead = true;
         }
         planetMaterial.color = planetColour;
 
@@ -92,9 +135,9 @@ public class GameManager : MonoBehaviour
         float health = Mathf.Round(planetColour.g * 100f);
         healthText.text = health.ToString()+"%";
 
-        print("green color = " + planetColour.g);
-        print("red color = " + planetColour.r);
-        print("blue color = " + planetColour.b);
+        //print("green color = " + planetColour.g);
+        //print("red color = " + planetColour.r);
+        //print("blue color = " + planetColour.b);
 
     }
 

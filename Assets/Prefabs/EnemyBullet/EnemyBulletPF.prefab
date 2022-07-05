@@ -176,6 +176,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: 1-fbx
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7597d62a01899c54b9719011ef91a575,
+        type: 3}
+      propertyPath: m_TagString
+      value: EnemyBullet
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 7597d62a01899c54b9719011ef91a575, type: 3}
@@ -262,6 +267,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: d706cbefc3c467f4a8bcf8f4d2a62a81,
+        type: 3}
+      propertyPath: m_TagString
+      value: EnemyBullet
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
@@ -350,6 +360,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: de474fd69a48d074aa1cbfec90116372,
+        type: 3}
+      propertyPath: m_TagString
+      value: EnemyBullet
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: de474fd69a48d074aa1cbfec90116372, type: 3}
@@ -436,6 +451,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0d6c1d0adbbed734a90576cf2fe3ed22,
+        type: 3}
+      propertyPath: m_TagString
+      value: EnemyBullet
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []

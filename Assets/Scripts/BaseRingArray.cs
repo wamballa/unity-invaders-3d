@@ -148,7 +148,7 @@ public class BaseRingArray : MonoBehaviour
             //print("Ring array " + transform.name);
             //print("Ring array length " + units.Count);
             //print("random enemy = " + randomEnemy);
-            if (units[randomEnemy] != null) units[randomEnemy].GetComponent<EnemyController>().HandleFiring();
+            if (units[randomEnemy] != null) units[randomEnemy].GetComponent<EnemyController> ().HandleFiring();
             //print("RingArray trigger fire");
         }
     }
