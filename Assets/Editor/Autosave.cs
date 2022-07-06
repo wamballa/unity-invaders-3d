@@ -5,6 +5,7 @@ using UnityEngine;
 [InitializeOnLoad]
 public class Autosave
 {
+    [System.Obsolete]
     static Autosave()
     {
         EditorApplication.playmodeStateChanged += () =>

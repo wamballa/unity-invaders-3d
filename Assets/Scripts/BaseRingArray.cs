@@ -29,7 +29,7 @@ public class BaseRingArray : MonoBehaviour
     float radius;
     //public float rotation;
 
-    public List<GameObject> units;
+    private List<GameObject> units;
 
     [HideInInspector]
     private bool canFire;
@@ -47,6 +47,9 @@ public class BaseRingArray : MonoBehaviour
     float fireDelay = 1;
 
     private int angleInt;
+
+    [Header("Invader Counter")]
+    [SerializeField] private int numberOfInvaders;
 
     // Start is called before the first frame update
     public void Start()
@@ -70,8 +73,17 @@ public class BaseRingArray : MonoBehaviour
         SpaceEnemies();
         HandleFiring();
         HandleTransparency();
+        CountInvaders();
     }
 
+    private void CountInvaders()
+    {
+        numberOfInvaders = units.Count;
+    }
+    public int GetNumberOfInvaders()
+    {
+        return numberOfInvaders;
+    }
     public int GetRotation()
     {
         return angleInt;

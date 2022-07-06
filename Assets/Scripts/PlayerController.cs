@@ -26,7 +26,12 @@ public class PlayerController : MonoBehaviour
     private int maxExplosions = 10;
     [Header("Player explosion stuff")]
     [SerializeField] private GameObject[] explosionSpawnPoints;
+    [SerializeField] private GameObject gameOverTextPF;
     [SerializeField] private TMP_Text gameOverText;
+    [SerializeField] private GameObject faderPanelPF;
+float startFontSize;
+    float lerpAmount = 0.5f;
+    float lerpT;
 
 
 
@@ -59,6 +64,7 @@ public class PlayerController : MonoBehaviour
         startPosition = transform.position;
         startRotation = transform.rotation;
         livesText.text = lives.ToString();
+        startFontSize = gameOverText.fontSize;
     }
 
     // Update is called once per frame
@@ -75,7 +81,7 @@ public class PlayerController : MonoBehaviour
     }
     public void PlayerIsDead()
     {
-        print("PLAYER DEAD");
+        //print("PLAYER DEAD");
         playerPF.SetActive(false);
         isPlayerAlive = false;
 
@@ -157,6 +163,11 @@ public class PlayerController : MonoBehaviour
         {
             Fire();
         }
+
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            isPlayerAlive = false;
+        }
     }
 
     void Fire()
@@ -211,19 +222,25 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+
+
     void HandlePlayerDeath()
     {
         if (!isPlayerAlive)
         {
+            // make text visible
+            gameOverTextPF.SetActive(true);
+            //faderPanelPF.SetActive(true);
             // Tween GameOver Text
-            float n = gameOverText.fontSize;
-
+            gameOverText.fontSize = Mathf.Lerp(startFontSize, 150, lerpT);
+            lerpT += lerpAmount * Time.deltaTime;
 
             if (Time.time > explosionTimer)
             {
+                audioSource.PlayOneShot(explosionSFX);
                 if (explosionCounter <= maxExplosions)
                 {
-                    print("PLAYER DEAD do explosion " + explosionCounter);
+                    //print("PLAYER DEAD do explosion " + explosionCounter);
                     playerPF.SetActive(false);
                     explosionCounter++;
                     explosionTimer = Time.time + explosionDelay;
@@ -243,8 +260,9 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator GameOver()
     {
-        yield return new WaitForSeconds(2);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        yield return new WaitForSeconds(4);
+        SimpleSceneFader.ChangeSceneWithFade("GameOver");
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
 }

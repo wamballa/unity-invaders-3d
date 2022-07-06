@@ -15,6 +15,9 @@ public class ArrayManager : MonoBehaviour
     [Header("INVADER ONLY = Direction")]
     public int invaderDirection;
 
+
+    ///////////////////////
+
     public float GetFireDelay()
     {
         return fireDelay;
@@ -25,25 +28,7 @@ public class ArrayManager : MonoBehaviour
         return invaderDirection;
     }
 
-    //public GameObject GetDefencePrefab(int n)
-    //{
-    //    switch (n)
-    //    {
-    //        case 1:
-    //            return defenceState1;
 
-    //        case 2:
-    //            return defenceState2;
 
-    //        case 3:
-    //            return defenceState3;
 
-    //        case 4:
-    //            return defenceState4;
-
-    //        default:
-    //            print("ERROR: Array Manager Switch Error");
-    //            return null;
-    //    }
-    //}
 }
