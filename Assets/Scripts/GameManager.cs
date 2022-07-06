@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private AudioClip motherSFX;
     private float mothershipTimer;
     [SerializeField] private float mothershipDelay = 5f;
-    bool isMotherVisible = false;
+    public bool isMotherVisible = false;
     [SerializeField] private GameObject mothershipPF;
 
     [SerializeField] private GameObject vhsPF;
@@ -100,7 +100,7 @@ public class GameManager : MonoBehaviour
                 {
                     explosionCounter++;
                     explosionTimer = Time.time + explosionDelay;
-                    foreach(GameObject explosion in explosionSpawnPoints)
+                    foreach (GameObject explosion in explosionSpawnPoints)
                     {
                         GameObject go = Instantiate(explosionPF, explosion.transform.position, Quaternion.identity);
                         Destroy(go, 2f);
@@ -124,7 +124,7 @@ public class GameManager : MonoBehaviour
     {
         if (isPlanetDead) return;
         //planetHealth--;
-        planetColour.g = planetColour.g - 0.01f;
+        planetColour.g = planetColour.g - 0.001f;
         if (planetColour.g <= 0)
         {
             isPlanetDead = true;
@@ -133,12 +133,7 @@ public class GameManager : MonoBehaviour
 
         // update text
         float health = Mathf.Round(planetColour.g * 100f);
-        healthText.text = health.ToString()+"%";
-
-        //print("green color = " + planetColour.g);
-        //print("red color = " + planetColour.r);
-        //print("blue color = " + planetColour.b);
-
+        healthText.text = health.ToString() + "%";
     }
 
     void HandleScoreText()
@@ -157,7 +152,9 @@ public class GameManager : MonoBehaviour
         {
             float rand = Random.Range(0, 10000);
             if (rand > 9990f)
+            //if (rand > 9990f)
             {
+                print("MAKE MOTHER VISIBLE");
                 audioSource.PlayOneShot(motherSFX);
                 isMotherVisible = true;
                 mothershipPF.SetActive(true);
@@ -174,7 +171,7 @@ public class GameManager : MonoBehaviour
         {
             if (Time.time > mothershipTimer)
             {
-                
+
                 isMotherVisible = false;
             }
         }

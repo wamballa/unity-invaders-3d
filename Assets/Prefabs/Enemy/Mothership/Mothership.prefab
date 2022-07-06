@@ -160,6 +160,7 @@ GameObject:
   - component: {fileID: 3254645575638664007}
   - component: {fileID: 6490860310008083192}
   - component: {fileID: 2553688960878530246}
+  - component: {fileID: 4256839332402569450}
   m_Layer: 0
   m_Name: Mothership
   m_TagString: Untagged
@@ -241,6 +242,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotateDuration: 2
   pauseDelay: 2
+--- !u!114 &4256839332402569450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6527355763322751690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e918cec4b707e14c9fb12948d85cd99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameManager: {fileID: 0}
+  explosionVFX: {fileID: 6899414717631399991, guid: 572103bc64e75824086183093ccd6937,
+    type: 3}
 --- !u!1 &6601999686453113814
 GameObject:
   m_ObjectHideFlags: 0

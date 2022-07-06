@@ -13,11 +13,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject explosionPF;
     [SerializeField] private AudioClip explosionSFX;
     [SerializeField] private GameObject playerPF;
+    [SerializeField] private GameObject playerPFhit;
     [SerializeField] private float speed;
     private bool isPlayerAlive = true;
     private Vector3 startPosition;
     private Quaternion startRotation;
     private int lives = 3;
+    private bool canMove = true;
 
     // Explosion stuff
     private float explosionTimer;
@@ -28,8 +30,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject[] explosionSpawnPoints;
     [SerializeField] private GameObject gameOverTextPF;
     [SerializeField] private TMP_Text gameOverText;
-    [SerializeField] private GameObject faderPanelPF;
-float startFontSize;
+    [SerializeField] private Animation restartAnim;
+    [SerializeField] private CameraShake cameraShake;
+    public bool canShake = false;
+
+    float startFontSize;
     float lerpAmount = 0.5f;
     float lerpT;
 
@@ -60,6 +65,7 @@ float startFontSize;
     // Start is called before the first frame update
     void Start()
     {
+        restartAnim.Stop();
         audioSource = transform.GetComponent<AudioSource>();
         startPosition = transform.position;
         startRotation = transform.rotation;
@@ -70,10 +76,25 @@ float startFontSize;
     // Update is called once per frame
     void Update()
     {
-        if (isPlayerAlive) HandleInput();
+        //if (!canMove) return;
+        if (isPlayerAlive && canMove) HandleInput();
         HandleLivesText();
         HandlePlayerDeath();
+        HandleCameraShake();
+    }
 
+    void HandleCameraShake()
+    {
+        //print("HANDLE SHAKING");
+        if (canShake)
+        {
+            print("SHAKE");
+            cameraShake.CameraShakes();
+        }
+        else
+        {
+            cameraShake.StopShake();
+        }
     }
     private void HandleLivesText()
     {
@@ -124,7 +145,7 @@ float startFontSize;
     }
     void HandleInput()
     {
-
+        if (!canMove) return;
         if (Input.GetKey(KeyCode.LeftArrow))
         {
 
@@ -142,6 +163,7 @@ float startFontSize;
             //StartCoroutine(RotateMe(Vector3.up * cameraRotation, 1));
             if (!canRotate)
             {
+                KillInvaderBullets();
                 audioSource.PlayOneShot(rotationSFX);
                 targetRotation -= cameraRotation;
                 rotationDirection = -1;
@@ -152,6 +174,7 @@ float startFontSize;
         {
             if (!canRotate)
             {
+                KillInvaderBullets();
                 audioSource.PlayOneShot(rotationSFX);
                 targetRotation += cameraRotation;
                 rotationDirection = 1;
@@ -169,6 +192,14 @@ float startFontSize;
             isPlayerAlive = false;
         }
     }
+    void KillInvaderBullets()
+    {
+        GameObject[] invaderBullets = GameObject.FindGameObjectsWithTag("EnemyBullet");
+        foreach (GameObject g in invaderBullets)
+        {
+            Destroy(g);
+        }
+    }
 
     void Fire()
     {
@@ -178,6 +209,7 @@ float startFontSize;
             GameObject bullet = Instantiate(bulletPF,
                 bulletSpawnPoint.position,
                 transform.rotation);
+            Destroy(bullet, 10);
             fireTimer = Time.time + fireDelay;
         }
 
@@ -187,12 +219,11 @@ float startFontSize;
     {
         if (other.CompareTag("EnemyBullet"))
         {
-
-            //print("Player hit by bullet");
             if (lives > 1)
             {
                 lives--;
                 audioSource.PlayOneShot(explosionSFX);
+                // create explosion
                 GameObject go = Instantiate(
                     explosionPF,
                     transform.position,
@@ -204,24 +235,43 @@ float startFontSize;
                 {
                     Destroy(g);
                 }
+                //transform.position = startPosition;
+                //transform.rotation = startRotation;
+                print("PLAYER HIT");
+                canShake = true;
+                StartCoroutine(RestartPlayer());
 
-                transform.position = startPosition;
-                transform.rotation = startRotation;
             }
             else
             {
                 isPlayerAlive = false;
-                //GameObject go = Instantiate(
-                //    explosionPF,
-                //    transform.position,
-                //    transform.rotation);
-                //Destroy(go, 2f);
-                //playerPF.SetActive(false);
-                //StartCoroutine(GameOver());
             }
         }
     }
 
+    IEnumerator RestartPlayer()
+    {
+        print("RESTART PLAYER");
+        canShake = true;
+        playerPF.SetActive(false);
+        playerPFhit.SetActive(true);
+        canMove = false;
+        // disable collsions
+        transform.GetComponent<BoxCollider>().enabled = false;
+
+        yield return new WaitForSeconds(2);
+        print("YIELD DONE");
+        // stop shaking
+        canShake = false;
+        // enable collsions
+        transform.GetComponent<BoxCollider>().enabled = true;
+        playerPF.SetActive(true);
+        playerPFhit.SetActive(false);
+        canMove = true;
+        KillInvaderBullets();
+        //transform.position = startPosition;
+        //transform.rotation = startRotation;
+    }
 
 
     void HandlePlayerDeath()
@@ -261,8 +311,9 @@ float startFontSize;
     IEnumerator GameOver()
     {
         yield return new WaitForSeconds(4);
-        SimpleSceneFader.ChangeSceneWithFade("GameOver");
-        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        //SimpleSceneFader.ChangeSceneWithFade("GameOver");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+
     }
 
 }

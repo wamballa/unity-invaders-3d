@@ -16,9 +16,11 @@ public class BaseRingArray : MonoBehaviour
         four,
         five,
         six,
-        seven
+        seven,
+        none
     }
     public Ring ringID;
+    public Ring visibleRingID;
 
     //public TMP_Text debugText;
     [Header("Invaders & Defences Prefabs")]
@@ -61,8 +63,8 @@ public class BaseRingArray : MonoBehaviour
         units = new List<GameObject>();
 
         // Prefab != null FOR Invaders. As defences have multiple prefabs, prefab is defined elsewhere
-        if(prefab != null)
-        CreateEnemiesAroundPoint(numberOfEnemies, positionTransform.position, radius);
+        if (prefab != null)
+            CreateEnemiesAroundPoint(numberOfEnemies, positionTransform.position, radius);
 
         fireTimer = Time.time + fireDelay;
     }
@@ -74,6 +76,17 @@ public class BaseRingArray : MonoBehaviour
         HandleFiring();
         HandleTransparency();
         CountInvaders();
+    }
+
+    public bool GetIsRingVisble()
+    {
+        if (visibleRingID != Ring.none)
+        {
+            return true;
+        }
+        else { 
+            return false;
+        }
     }
 
     private void CountInvaders()
@@ -99,6 +112,7 @@ public class BaseRingArray : MonoBehaviour
 
         if (angleInt != 0)
         {
+            visibleRingID = Ring.none;
             foreach (GameObject go in units)
             {
                 if (go != null)
@@ -116,6 +130,9 @@ public class BaseRingArray : MonoBehaviour
         }
         else
         {
+            // update which ring is visible
+            visibleRingID = ringID;
+           
             foreach (GameObject go in units)
             {
                 IAmInTheWay[] allChildren = go.GetComponentsInChildren<IAmInTheWay>();
@@ -132,6 +149,7 @@ public class BaseRingArray : MonoBehaviour
         {
             if (angleInt == 180 || angleInt == 0)
             {
+                visibleRingID = ringID;
                 foreach (GameObject go in units)
                 {
                     IAmInTheWay[] allChildren = go.GetComponentsInChildren<IAmInTheWay>();
@@ -160,7 +178,7 @@ public class BaseRingArray : MonoBehaviour
             //print("Ring array " + transform.name);
             //print("Ring array length " + units.Count);
             //print("random enemy = " + randomEnemy);
-            if (units[randomEnemy] != null) units[randomEnemy].GetComponent<EnemyController> ().HandleFiring();
+            if (units[randomEnemy] != null) units[randomEnemy].GetComponent<EnemyController>().HandleFiring();
             //print("RingArray trigger fire");
         }
     }
@@ -182,7 +200,7 @@ public class BaseRingArray : MonoBehaviour
             units.Remove(unit);
 
         }
-        for (int i=0; i< units.Count;i++)
+        for (int i = 0; i < units.Count; i++)
         {
             if (units[i] == null) units.RemoveAt(i);
         }
@@ -207,9 +225,9 @@ public class BaseRingArray : MonoBehaviour
 
             /* Now spawn */
             GameObject unit = Instantiate(
-                prefab,
-                spawnPos,
-                transform.rotation);
+prefab,
+spawnPos,
+transform.rotation);
 
             unit.name = ringID.ToString() + i;
 
