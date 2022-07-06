@@ -38,7 +38,8 @@ public class EnemyBullet : MonoBehaviour
             //print(">>> " + transform.name + " " + other.name);
             GameManager gm = GameObject.Find("GameManager").GetComponent<GameManager>();
             gm.HandlePlanetHealth();
-            Instantiate(explosion, transform.position, transform.rotation);
+            GameObject exp = Instantiate(explosion, transform.position, transform.rotation);
+            Destroy(exp, 2f);
             Destroy(gameObject);
         }
 

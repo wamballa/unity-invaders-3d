@@ -174,6 +174,7 @@ public class BaseRingArray : MonoBehaviour
         {
             fireTimer = Time.time + fireDelay;
             int enemyCount = units.Count;
+            if (enemyCount == 0) return;
             int randomEnemy = Random.Range(0, units.Count - 1);
             //print("Ring array " + transform.name);
             //print("Ring array length " + units.Count);

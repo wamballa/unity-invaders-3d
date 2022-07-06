@@ -81,10 +81,11 @@ public class GameManager : MonoBehaviour
         HandleScoreText();
         HandlePlanetExplode();
 
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            isPlanetDead = true;
-        }
+        //if (Input.GetKeyDown(KeyCode.X))
+        //{
+        //    planetColour.g -= 0.2f;
+        //    print(">>>>" + planetColour.g);
+        //}
     }
 
     private void HandlePlanetExplode()
@@ -123,8 +124,8 @@ public class GameManager : MonoBehaviour
     public void HandlePlanetHealth()
     {
         if (isPlanetDead) return;
-        //planetHealth--;
         planetColour.g = planetColour.g - 0.001f;
+
         if (planetColour.g <= 0)
         {
             isPlanetDead = true;
@@ -133,6 +134,10 @@ public class GameManager : MonoBehaviour
 
         // update text
         float health = Mathf.Round(planetColour.g * 100f);
+        if (health <= 10)
+        {
+            healthText.color = Color.red;
+        }
         healthText.text = health.ToString() + "%";
     }
 

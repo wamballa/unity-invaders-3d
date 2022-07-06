@@ -5,11 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class IntroButton : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public AudioSource audioSourceMusic;
+    public AudioSource audioSource;
+    public AudioClip audioClip;
+
+    bool isClipPlaying = false;
 
     // Update is called once per frame
     void Update()
@@ -19,7 +19,20 @@ public class IntroButton : MonoBehaviour
 
     public void GoToNextScene()
     {
+        StartCoroutine(NextScene());
+
         //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+
+    }
+    private IEnumerator NextScene()
+    {
+        if (!isClipPlaying)
+        {
+            audioSourceMusic.Stop();
+            audioSource.PlayOneShot(audioClip);
+            isClipPlaying = true;
+        }
+        yield return new WaitForSeconds(2);
         SceneManager.LoadScene("Main");
     }
 }

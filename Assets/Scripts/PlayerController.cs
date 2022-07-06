@@ -187,10 +187,10 @@ public class PlayerController : MonoBehaviour
             Fire();
         }
 
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            isPlayerAlive = false;
-        }
+        //if (Input.GetKeyDown(KeyCode.M))
+        //{
+        //    isPlayerAlive = false;
+        //}
     }
     void KillInvaderBullets()
     {
@@ -280,8 +280,6 @@ public class PlayerController : MonoBehaviour
         {
             // make text visible
             gameOverTextPF.SetActive(true);
-            //faderPanelPF.SetActive(true);
-            // Tween GameOver Text
             gameOverText.fontSize = Mathf.Lerp(startFontSize, 150, lerpT);
             lerpT += lerpAmount * Time.deltaTime;
 

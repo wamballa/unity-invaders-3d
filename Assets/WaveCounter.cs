@@ -8,6 +8,8 @@ public class WaveCounter : MonoBehaviour
 {
 
     public GameObject[] invaderGroups;
+    [SerializeField] private GameObject gameWonTextPF;
+    [SerializeField] private TMP_Text gameWonText;
     public int[] numInvadersInRing;
 
     public TMP_Text waveText1;
@@ -19,11 +21,16 @@ public class WaveCounter : MonoBehaviour
     public AudioClip winningMusic;
     bool isWinMusicPlaying = false;
 
+    float startFontSize;
+    float lerpAmount = 0.5f;
+    float lerpT;
+
     // Start is called before the first frame update
     void Start()
     {
         int ring = 0;
         numInvadersInRing = new int[7];
+        startFontSize = gameWonText.fontSize;
     }
 
     // Update is called once per frame
@@ -57,7 +64,13 @@ public class WaveCounter : MonoBehaviour
             isWinMusicPlaying = true;
             audioSource.PlayOneShot(winningMusic);
         }
-        print("YOU WON");
+
+        // make text visible
+        gameWonTextPF.SetActive(true);
+        gameWonText.fontSize = Mathf.Lerp(startFontSize, 150, lerpT);
+        lerpT += lerpAmount * Time.deltaTime;
+
+        //print("YOU WON");
         yield return new WaitForSeconds(10);
         SceneManager.LoadScene("Win");
     }
